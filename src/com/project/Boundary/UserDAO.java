@@ -59,7 +59,7 @@ public class UserDAO {
 			}
 		}
 	
-public ArrayList<User_Group2> getCars()	{
+public ArrayList<User_Group2> getUsers()	{
 		
 		ArrayList<User_Group2> ul = new ArrayList<User_Group2>();
 		
