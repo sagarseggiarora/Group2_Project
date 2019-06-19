@@ -90,25 +90,18 @@ public class LoginGUI {
 				if(isValid) {
 					
 					lblResult.setText("login success");
+					CreateGUI.main(null);
 				}
 				else
 				{
 					lblResult.setText("Try again");
 				}
 				
-
-				
+			
 			}
 		});
 		btnLogin.setBounds(211, 209, 115, 29);
 		frame.getContentPane().add(btnLogin);
-		
-		
-
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(307, 80, 46, 14);
-		frame.getContentPane().add(lblNewLabel);
 
 	}
 }
