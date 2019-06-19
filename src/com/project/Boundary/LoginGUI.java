@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import com.project.Entity.Login_Group2;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,6 +23,7 @@ public class LoginGUI {
 	/**
 	 * Launch the application.
 	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,6 +82,21 @@ public class LoginGUI {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				dao = new UserDAO();
+				String user = txtUsername.getText();
+				String pass = txtPassword.getText();
+				boolean isValid= dao.validate(user, pass);
+				if(isValid) {
+					
+					lblResult.setText("login success");
+				}
+				else
+				{
+					lblResult.setText("Try again");
+				}
+				
+
 				
 			}
 		});
@@ -85,5 +104,11 @@ public class LoginGUI {
 		frame.getContentPane().add(btnLogin);
 		
 		
+
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(307, 80, 46, 14);
+		frame.getContentPane().add(lblNewLabel);
+
 	}
 }
