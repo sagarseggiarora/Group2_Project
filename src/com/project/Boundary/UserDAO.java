@@ -16,9 +16,9 @@ public class UserDAO {
 		private String password = "";
 		
 		private Connection conn = null;
-		private ResultSet rs = null;
-		private Statement stmt = null;
-		private PreparedStatement pstmt = null;
+		 private ResultSet rs = null;
+		 private Statement stmt = null;
+		 private PreparedStatement pstmt = null;
 		
 		
 		public void ConnectDB()	{
@@ -58,44 +58,33 @@ public class UserDAO {
 			System.out.println(sx.getSQLState());
 			}
 		}
-	
-public ArrayList<User_Group2> getUsers()	{
-		
-		ArrayList<User_Group2> ul = new ArrayList<User_Group2>();
-		
-		String sql = "SELECT * FROM user";
-		
-		try {
-			ConnectDB();
+		public boolean  validate(String username, String Password)
+		{
+			String sql ="select username,password from login where username= '"+username+"' and password= '"+password+"'";
+			boolean check = false;
 			
-			stmt = conn.createStatement();
-			
-			rs = stmt.executeQuery(sql);
-			
-		while (rs.next())	{
-			User_Group2 nu = new User_Group2();
-			
-			nu.setUser_id(rs.getInt("user_id"));
-			nu.setFirst_name(rs.getString("first_name"));
-			nu.setLast_name(rs.getString("last_name"));
-			nu.setEmail(rs.getString("email"));
-			nu.setAddress(rs.getString("address"));
-			nu.setPhone_number(rs.getString("phone_number"));
-			
-			ul.add(nu);
-		
-		}
-		
-		DisconnectDB();
-			
-		} catch (SQLException sx)	{
-			System.out.println("Error Connecting to database");
-			System.out.println(sx.getMessage());
-			System.out.println(sx.getErrorCode());
-			System.out.println(sx.getSQLState());
+			try {
+				ConnectDB();
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(sql);
+				if(rs.next())
+				{
+					check= true;
+				}
+				else
+				{
+					check = false;
+				}
+				DisconnectDB();
 			}
-		
-		
-		return ul;
-	}
+			catch(SQLException sx)
+			{
+				System.out.println("Error connection to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+			}
+			return check;
+		}
+
 }

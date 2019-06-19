@@ -29,8 +29,12 @@ public class Login_Group2 {
 	public int getEmp_id() {
 		return emp_id;
 	}
+	public String getPassword() {
+		return password;
+	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 
 }
