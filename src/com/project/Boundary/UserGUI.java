@@ -21,7 +21,7 @@ public class UserGUI {
 	private JTable table;
 	
 	private DefaultTableModel tm;
-	//car DAO for CRUD operations
+	//user DAO for CRUD operations
 	private UserDAO uo = new UserDAO();
 	private static User_Group2 u = new User_Group2();
 	private ListSelectionListener lsl;
