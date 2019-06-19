@@ -6,12 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginGUI {
 
 	private JFrame frame;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
+	
+	UserDAO dao;
 
 	/**
 	 * Launch the application.
@@ -67,12 +71,19 @@ public class LoginGUI {
 		frame.getContentPane().add(txtPassword);
 		txtPassword.setColumns(10);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(211, 209, 115, 29);
-		frame.getContentPane().add(btnLogin);
-		
 		JLabel lblResult = new JLabel("");
 		lblResult.setBounds(238, 274, 69, 20);
 		frame.getContentPane().add(lblResult);
+		
+		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnLogin.setBounds(211, 209, 115, 29);
+		frame.getContentPane().add(btnLogin);
+		
+		
 	}
 }

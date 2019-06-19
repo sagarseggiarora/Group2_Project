@@ -83,12 +83,12 @@ public class UserGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 766, 496);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(99, 13, 321, 213);
+		scrollPane.setBounds(408, 107, 321, 213);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
