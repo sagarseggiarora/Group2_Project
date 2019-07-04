@@ -49,7 +49,7 @@ public class DashboardGUI {
 				//create ticket for Existing page
 			}
 		});
-		btnCreateTicketExisting.setBounds(209, 35, 354, 59);
+		btnCreateTicketExisting.setBounds(31, 58, 313, 59);
 		frame.getContentPane().add(btnCreateTicketExisting);
 		
 		JButton btnCreateTicketNew = new JButton("Create Ticket for \r\nNew Customer");
@@ -58,7 +58,7 @@ public class DashboardGUI {
 				CreateNewGUI.main(null);
 			}
 		});
-		btnCreateTicketNew.setBounds(209, 130, 354, 59);
+		btnCreateTicketNew.setBounds(422, 58, 321, 59);
 		frame.getContentPane().add(btnCreateTicketNew);
 		
 		JButton btnViewAllTickets = new JButton("View All Tickets");
@@ -67,7 +67,17 @@ public class DashboardGUI {
 				ViewTicketsGUI.main(null);
 			}
 		});
-		btnViewAllTickets.setBounds(209, 229, 354, 59);
+		btnViewAllTickets.setBounds(230, 157, 321, 59);
 		frame.getContentPane().add(btnViewAllTickets);
+		
+		JButton btnSearch = new JButton("Search Ticket");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SearchTicketGUI.main(null);
+			}
+		});
+		btnSearch.setBounds(230, 252, 321, 59);
+		frame.getContentPane().add(btnSearch);
 	}
+	
 }
