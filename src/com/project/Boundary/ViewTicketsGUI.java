@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import com.project.Boundary.UserTicketDAO;
+import com.project.Controller.WordWrapCellRenderer;
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 import javax.swing.JScrollPane;
@@ -70,6 +71,8 @@ public class ViewTicketsGUI {
 		table.getColumnModel().getColumn(0).setPreferredWidth(85);
 		table.getColumnModel().getColumn(1).setPreferredWidth(150);
 		table.getColumnModel().getColumn(2).setMinWidth(150);
+		
+		table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
 	}
 	
 
