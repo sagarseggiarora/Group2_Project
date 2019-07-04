@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CreateGUI {
+public class CreateNewGUI {
 
 	private JFrame frame;
 	private JTextField txtTicket;
@@ -24,7 +24,7 @@ public class CreateGUI {
 	private JTextField txtAddress;
 	private JTextField txtPhone;
 	
-	UserDAO dao;
+	UserTicketDAO dao;
 
 	/**
 	 * Launch the application.
@@ -33,7 +33,7 @@ public class CreateGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CreateGUI window = new CreateGUI();
+					CreateNewGUI window = new CreateNewGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class CreateGUI {
 	/**
 	 * Create the application.
 	 */
-	public CreateGUI() {
+	public CreateNewGUI() {
 		initialize();
 	}
 
@@ -124,7 +124,7 @@ public class CreateGUI {
 		JButton btnCreateTicket = new JButton("Create Ticket");
 		btnCreateTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dao=new UserDAO();
+				dao=new UserTicketDAO();
 				Tickets_Group2 t1=new Tickets_Group2();
 				User_Group2 u1=new User_Group2();
 				
@@ -138,7 +138,7 @@ public class CreateGUI {
 				t1.setEmail(txtEmail.getText());
 				t1.setIssue(txtrIssue.getText());
 				
-				dao.newStudent(u1);
+				dao.newCustomer(u1);
 				dao.newTicket(t1);
 				
 				

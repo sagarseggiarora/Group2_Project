@@ -18,7 +18,7 @@ public class LoginGUI {
 	private JTextField txtUsername;
 	private JTextField txtPassword;
 	
-	UserDAO dao;
+	UserTicketDAO dao;
 
 	/**
 	 * Launch the application.
@@ -83,14 +83,14 @@ public class LoginGUI {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				dao = new UserDAO();
+				dao = new UserTicketDAO();
 				String user = txtUsername.getText();
 				String pass = txtPassword.getText();
 				boolean isValid= dao.validate(user, pass);
 				if(isValid) {
 					
 					lblResult.setText("login success");
-					CreateGUI.main(null);
+					DashboardGUI.main(null);
 				}
 				else
 				{

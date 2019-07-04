@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
-public class UserDAO {
+public class UserTicketDAO {
 	
 		private String dsn = "jdbc:mysql://localhost/project_group2";
 		private String username = "root";
@@ -116,7 +116,7 @@ public class UserDAO {
 			
 		}
 		
-		public int newStudent(User_Group2 cust)	{
+		public int newCustomer(User_Group2 cust)	{
 			
 			int newCustID = 0;
 			
@@ -143,6 +143,44 @@ public class UserDAO {
 			}
 
 			return newCustID;
+		}
+		
+		
+		public ArrayList<Tickets_Group2> getTickets()	{
+			
+			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
+			
+			String sql = "SELECT * FROM tickets";
+			
+			try {
+				ConnectDB();
+				
+				stmt = conn.createStatement();
+				
+				rs = stmt.executeQuery(sql);
+				
+			while (rs.next())	{
+				Tickets_Group2 nt = new Tickets_Group2();
+				
+				nt.setTicket_number(rs.getInt("Ticket_Number"));
+				nt.setEmail(rs.getString("Email"));
+				nt.setIssue(rs.getString("Issue"));
+				
+				tl.add(nt);
+			
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return tl;
 		}
 
 
