@@ -23,7 +23,7 @@ public class ViewTicketsGUI {
 	private JTable table;
 	
 	private DefaultTableModel tm;
-	//car DAO for CRUD operations
+	
 	private UserTicketDAO uto = new UserTicketDAO();
 	private static Tickets_Group2 t = new Tickets_Group2();
 	private ListSelectionListener lsl;

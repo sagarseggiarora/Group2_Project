@@ -7,7 +7,14 @@ public class Tickets_Group2 {
 	private int ticket_number;
 	private String email = "";
 	private String issue = "";
+	private String status = "";
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getTicket_number() {
 		return ticket_number;
 	}
@@ -32,6 +39,7 @@ public class Tickets_Group2 {
 		v.add(ticket_number);
 		v.add(email);
 		v.add(issue);
+		v.add(status);
 		
 		return v;
 	}

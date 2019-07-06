@@ -97,7 +97,7 @@ public class UserTicketDAO {
 		public int newTicket(Tickets_Group2 tick) {
 			
 			int ticketNumber=0;
-			String sql="INSERT INTO Tickets (email, issue)" + " VALUES ('" + tick.getEmail()+"','"+tick.getIssue()+"');";
+			String sql="INSERT INTO Tickets (email, issue, status)" + " VALUES ('" + tick.getEmail()+"','"+tick.getIssue()+"','Open');";
 			
 			try {
 				ConnectDB();
