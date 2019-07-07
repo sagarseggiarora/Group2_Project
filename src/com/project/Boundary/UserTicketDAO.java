@@ -366,4 +366,19 @@ public class UserTicketDAO {
 			return cs;
 			
 		}
+		public void AddIssue(User_Group2 t)
+		{
+			String sql = "insert into tickets(Email,Issue) value(?,?)";
+			try {
+				ConnectDB();
+				pstmt = conn.prepareStatement(sql);
+				this.pstmt.setString(1,t.getEmail());
+				this.pstmt.setString(2,t.getIssue());
+				this.pstmt.execute();
+				System.out.println("Added");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 }

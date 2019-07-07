@@ -9,8 +9,15 @@ public class User_Group2 {
 	private String email = "";
 	private String address = "";
 	private String phone_number = "";
+	private String issue="";
 	
 	
+	public String getIssue() {
+		return issue;
+	}
+	public void setIssue(String issue) {
+		this.issue = issue;
+	}
 	public int getUser_id() {
 		return user_id;
 	}

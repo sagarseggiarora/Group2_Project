@@ -130,5 +130,18 @@ public class ExistingCustGui {
 		txtIssue.setBounds(98, 232, 279, 112);
 		frame.getContentPane().add(txtIssue);
 		txtIssue.setColumns(10);
+		
+		JButton btnAdd = new JButton("ADD ISSUE");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				User_Group2 tf = new User_Group2();
+				dao1 = new UserTicketDAO();
+				tf.setEmail(gtEmail.getText().trim());
+				tf.setIssue(txtIssue.getText().trim());
+				dao1.AddIssue(tf);
+			}
+		});
+		btnAdd.setBounds(195, 354, 142, 23);
+		frame.getContentPane().add(btnAdd);
 	}
 }
