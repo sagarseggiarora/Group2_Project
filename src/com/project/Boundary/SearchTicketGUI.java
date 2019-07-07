@@ -6,9 +6,11 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+
 
 import com.project.Controller.WordWrapCellRenderer;
 import com.project.Entity.Tickets_Group2;
@@ -19,6 +21,9 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JComboBox;
 
 public class SearchTicketGUI {
 
@@ -33,6 +38,10 @@ public class SearchTicketGUI {
 	private UserTicketDAO uto = new UserTicketDAO();
 	private DefaultTableModel tm;
 	private ListSelectionListener lsl;
+	private JTextField txtTicketnumber;
+	private JTextField txtEmailfromlist;
+	private JTextArea txtrIssuefromlist;
+	private JComboBox comboStatus;
 
 	/**
 	 * Launch the application.
@@ -51,6 +60,7 @@ public class SearchTicketGUI {
 	}
 	
 	
+	
 	private void addTableData()	{
 		
 		table.getSelectionModel().removeListSelectionListener(lsl);
@@ -60,6 +70,7 @@ public class SearchTicketGUI {
 		tm.addColumn("Ticket Number");
 		tm.addColumn("Email ID");
 		tm.addColumn("Issue");
+		tm.addColumn("Status");
 		
 		ArrayList<Tickets_Group2> tl = getSearchedTicket();
 		
@@ -105,6 +116,24 @@ public class SearchTicketGUI {
 		frame.setBounds(100, 100, 837, 483);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		lsl = new ListSelectionListener() {
+		
+		public void valueChanged(ListSelectionEvent arg0) {
+			// TODO Auto-generated method stub
+			//Get the column value of the first column of the selected row
+			int currId = (int) table.getValueAt(table.getSelectedRow(),0);
+
+			//Get the student associated with the selected row
+			Tickets_Group2 cs = uto.getTickets(currId);
+			
+			//Populate the text fields with the ticket data
+			txtEmailfromlist.setText(cs.getEmail());
+			txtTicketnumber.setText(String.valueOf(cs.getTicket_number()));
+			txtrIssuefromlist.setText(cs.getIssue());
+			//comboStatus.setSelectedItem(cs.getStatus());
+			
+		}
+		};
 		
 		txtSearchNum = new JTextField();
 		txtSearchNum.setToolTipText("Enter the ticket number");
@@ -147,6 +176,40 @@ public class SearchTicketGUI {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
+		
+		JLabel lblTicket = new JLabel("Ticket#");
+		lblTicket.setBounds(582, 14, 69, 20);
+		frame.getContentPane().add(lblTicket);
+		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setBounds(582, 50, 69, 20);
+		frame.getContentPane().add(lblEmail);
+		
+		JLabel lblIssue = new JLabel("Issue");
+		lblIssue.setBounds(582, 86, 69, 20);
+		frame.getContentPane().add(lblIssue);
+		
+		JLabel lblStatus = new JLabel("Status");
+		lblStatus.setBounds(585, 207, 69, 20);
+		frame.getContentPane().add(lblStatus);
+		
+		txtTicketnumber = new JTextField();
+		txtTicketnumber.setBounds(654, 11, 146, 26);
+		frame.getContentPane().add(txtTicketnumber);
+		txtTicketnumber.setColumns(10);
+		
+		txtEmailfromlist = new JTextField();
+		txtEmailfromlist.setBounds(654, 47, 146, 26);
+		frame.getContentPane().add(txtEmailfromlist);
+		txtEmailfromlist.setColumns(10);
+		
+		JTextArea txtrIssuefromlist = new JTextArea();
+		txtrIssuefromlist.setBounds(650, 86, 150, 105);
+		frame.getContentPane().add(txtrIssuefromlist);
+		
+		JComboBox comboStatus = new JComboBox();
+		comboStatus.setBounds(654, 204, 86, 26);
+		frame.getContentPane().add(comboStatus);
 		
 	}
 }

@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
@@ -145,6 +143,83 @@ public class UserTicketDAO {
 			return newCustID;
 		}
 		
+		/*public String getTicketID(String email) {
+			
+			String id="";
+			
+			String sql="SELECT Ticket_Number from tickets where email = ?";
+			
+			try {
+				
+				//Connect to the database
+				ConnectDB();
+					
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				pstmt.setString(0, email);
+				
+				this.rs = pstmt.executeQuery();
+				
+				id=rs.getString("Ticket_Number");
+				
+				//Disconnect from the Database
+				DisconnectDB();
+				
+			} catch (SQLException sx) {
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+			}
+			return id;
+			
+		}*/
+		
+		public Tickets_Group2 getTickets(int i){
+			
+			//Create an empty ticket to return
+			Tickets_Group2 gt = new Tickets_Group2();
+			
+			//Create the SQL prepared statement
+			String sql = "SELECT * FROM tickets WHERE Ticket_Number = ?";
+			
+			
+			try {
+				//Connect to the database 
+				ConnectDB();
+				
+				//Create the SQL query
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				//Set the parameter
+				this.pstmt.setInt(1,i);
+				
+				//Get the result
+				this.rs = this.pstmt.executeQuery();
+				
+				while (this.rs.next())	{
+					
+					gt.setTicket_number(rs.getInt("Ticket_Number"));
+					gt.setEmail(rs.getString("Email"));
+					gt.setIssue(rs.getString("Issue"));
+					gt.setStatus(rs.getString("status"));
+									
+				}
+				
+			} catch (SQLException se)	{
+				System.out.println("Error retriving ticket " + i);
+				System.out.println(se.getMessage());
+				System.out.println(se.getErrorCode());
+				System.out.println(se.getSQLState());
+			} finally {
+				
+				//Disconnect from the database
+				DisconnectDB();
+			}
+			
+			return gt;
+		}
+		
 		
 		public ArrayList<Tickets_Group2> getTickets()	{
 			
@@ -205,6 +280,7 @@ public class UserTicketDAO {
 				nt.setTicket_number(rs.getInt("Ticket_Number"));
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
+				nt.setStatus(rs.getString("Status"));
 				
 				tl.add(nt);
 			
@@ -245,6 +321,7 @@ public class UserTicketDAO {
 				nt.setTicket_number(rs.getInt("Ticket_Number"));
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
+				nt.setStatus(rs.getString("Status"));
 				
 				tl.add(nt);
 			

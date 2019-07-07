@@ -127,7 +127,7 @@ public class CreateNewGUI {
 				dao=new UserTicketDAO();
 				Tickets_Group2 t1=new Tickets_Group2();
 				User_Group2 u1=new User_Group2();
-				
+				//String email=txtEmail.getText();
 				u1.setFirst_name(txtFname.getText());
 				u1.setLast_name(txtLname.getText());
 				u1.setEmail(txtEmail.getText());
@@ -138,8 +138,13 @@ public class CreateNewGUI {
 				t1.setEmail(txtEmail.getText());
 				t1.setIssue(txtrIssue.getText());
 				
+				
 				dao.newCustomer(u1);
 				dao.newTicket(t1);
+				
+				//String ticket_NO=dao.getTicketID(email);
+				//txtTicket.setText(ticket_NO);
+				
 				
 				
 			}
@@ -150,6 +155,8 @@ public class CreateNewGUI {
 		JLabel lblIssue = new JLabel("Issue");
 		lblIssue.setBounds(15, 307, 69, 20);
 		frame.getContentPane().add(lblIssue);
+		
+		
 		
 		
 	}
