@@ -339,4 +339,31 @@ public class UserTicketDAO {
 			
 			return tl;
 		}
+		public User_Group2 gtUser(User_Group2 cs)
+		{
+			try
+			{
+				ConnectDB();
+			String sql = "select first_name,last_name,address,phone_number from user where email=?";
+			pstmt = conn.prepareStatement(sql);
+			this.pstmt.setString(1,cs.getEmail().trim());
+			rs= pstmt.executeQuery();
+			while(rs.next())
+			{
+				cs.setFirst_name(rs.getString("first_name"));
+				cs.setLast_name(rs.getString("last_name"));
+				cs.setAddress(rs.getString("address"));
+				cs.setPhone_number(rs.getString("phone_number"));
+				System.out.println(rs.getString("fname"));
+			}
+			}
+			catch(SQLException sx)	{
+				System.out.println("Error Inserting Student");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+			}
+			return cs;
+			
+		}
 }

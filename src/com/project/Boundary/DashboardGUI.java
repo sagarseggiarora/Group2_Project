@@ -46,6 +46,7 @@ public class DashboardGUI {
 		JButton btnCreateTicketExisting = new JButton("Create Ticket for \r\nExisting Customer");
 		btnCreateTicketExisting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				ExistingCustGui.main(null);
 				//create ticket for Existing page
 			}
 		});
