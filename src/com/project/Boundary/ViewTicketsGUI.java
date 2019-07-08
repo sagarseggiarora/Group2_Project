@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -97,6 +98,17 @@ public class ViewTicketsGUI {
 		frame.setBounds(100, 100, 600, 433);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		lsl = new ListSelectionListener() {
+			
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				//Get the column value of the first column of the selected row
+				int currId = (int) table.getValueAt(table.getSelectedRow(),0);
+
+				ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
+				vsg.ViewSelected(currId);
+			}
+			};
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(53, 73, 465, 288);
