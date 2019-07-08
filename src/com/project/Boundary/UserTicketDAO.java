@@ -20,7 +20,7 @@ public class UserTicketDAO {
 		 private ResultSet rs = null;
 		 private Statement stmt = null;
 		 private PreparedStatement pstmt = null;
-		
+		 
 		
 		public void ConnectDB()	{
 			
@@ -130,8 +130,9 @@ public class UserTicketDAO {
 				this.stmt = this.conn.createStatement();
 				
 				//Execute the statement
+				 
 				newCustID = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-
+				
 				DisconnectDB();
 			} catch (SQLException sx)	{
 				System.out.println("Error Inserting Student");
@@ -139,7 +140,8 @@ public class UserTicketDAO {
 				System.out.println(sx.getErrorCode());
 				System.out.println(sx.getSQLState());
 			}
-
+			
+			
 			return newCustID;
 		}
 		

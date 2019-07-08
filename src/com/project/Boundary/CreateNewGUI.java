@@ -139,8 +139,9 @@ public class CreateNewGUI {
 				t1.setIssue(txtrIssue.getText());
 				
 				
-				dao.newCustomer(u1);
+			    dao.newCustomer(u1);
 				dao.newTicket(t1);
+				
 				
 				//String ticket_NO=dao.getTicketID(email);
 				//txtTicket.setText(ticket_NO);
