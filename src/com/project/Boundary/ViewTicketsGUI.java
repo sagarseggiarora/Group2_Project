@@ -1,6 +1,8 @@
 package com.project.Boundary;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -16,11 +18,14 @@ import com.project.Controller.WordWrapCellRenderer;
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
 
 public class ViewTicketsGUI {
 
 	private JFrame frame;
 	private JTable table;
+	ArrayList<Tickets_Group2> tl;
 	
 	private DefaultTableModel tm;
 	
@@ -54,8 +59,9 @@ public class ViewTicketsGUI {
 		tm.addColumn("Ticket Number");
 		tm.addColumn("Email ID");
 		tm.addColumn("Issue");
+		tm.addColumn("Status");
 		
-		ArrayList<Tickets_Group2> tl = uto.getTickets();
+		
 		
 		for (Tickets_Group2 t: tl)	{
 			tm.addRow(t.getVector());
@@ -88,18 +94,51 @@ public class ViewTicketsGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 600, 433);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(12, 13, 408, 227);
+		scrollPane.setBounds(53, 73, 465, 288);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
-	
+		
+		JLabel lblFilterBy = new JLabel("Filter by");
+		lblFilterBy.setBounds(53, 16, 69, 20);
+		frame.getContentPane().add(lblFilterBy);
+		tl = uto.getTickets();
 		addTableData();
+		
+		JComboBox comboStatus = new JComboBox();
+		comboStatus.setBounds(137, 13, 69, 26);
+		frame.getContentPane().add(comboStatus);
+		comboStatus.addItem("Select");
+		comboStatus.addItem("Open");
+		comboStatus.addItem("Close");
+		
+		comboStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				if(comboStatus.getSelectedItem()=="Open") {
+					
+					tl = uto.getOpenTickets();
+					addTableData();
+				}
+				else if(comboStatus.getSelectedItem()=="Close") {
+					
+					tl = uto.getCloseTickets();
+					addTableData();
+				}
+				
+			}
+		});
+		
+		
+		
+	
+	
 	}
 }
