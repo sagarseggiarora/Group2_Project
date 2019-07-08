@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
@@ -474,5 +475,41 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		
+		public void updateTickets(Tickets_Group2 ut)	{
+			
+			//Update Query
+			String sql = "UPDATE tickets SET " + 
+					"status = ? " +
+					" WHERE Ticket_Number = ?";
+			
+			try {
+				
+				//Connect to the database
+				ConnectDB();
+				
+				//Create the prepared statements
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				//Set the parameters
+				this.pstmt.setString(1, ut.getStatus());
+				this.pstmt.setInt(2, ut.getTicket_number());
+								
+				//Execute the statement
+				this.pstmt.executeUpdate();
+				//Run the statement
+				System.out.println("Updated Ticket: " + ut.getTicket_number());
+				//Disconnect to the database
+				DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				
+				System.out.println("Error updating Ticket: " + String.valueOf(ut.getTicket_number()) + "\n");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+			}
+			
 		}
 }

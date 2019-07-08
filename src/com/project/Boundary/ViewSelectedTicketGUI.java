@@ -1,14 +1,16 @@
 package com.project.Boundary;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
+import javax.swing.JButton;
 
 public class ViewSelectedTicketGUI {
 
@@ -99,6 +101,10 @@ public class ViewSelectedTicketGUI {
 		cbStatus.setBounds(127, 223, 149, 22);
 		frame.getContentPane().add(cbStatus);
 		
+		cbStatus.addItem("Select");
+		cbStatus.addItem("Open");
+		cbStatus.addItem("Close");
+		
 		Tickets_Group2 cs = uto.getTicket(id);
 		User_Group2 ug = uto.getUser(id);;
 		
@@ -107,8 +113,32 @@ public class ViewSelectedTicketGUI {
 		txtEmail.setText(cs.getEmail());
 		txtName.setText(ug.getFirst_name()+ " " + ug.getLast_name());
 		txtIssue.setText(cs.getIssue());
-		//comboStatus.setSelectedItem(cs.getStatus());
+		String status=cs.getStatus();
+		cbStatus.setSelectedItem(status);
 		
 		
+		Tickets_Group2 ut=new Tickets_Group2();
+		cbStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(cbStatus.getSelectedItem()=="Close") {
+					ut.setStatus("Close");
+					ut.setTicket_number(Integer.parseInt(txtTicketNum.getText()));					
+				} else if (cbStatus.getSelectedItem()=="Open") {
+					ut.setStatus("Open");
+					ut.setTicket_number(Integer.parseInt(txtTicketNum.getText()));
+				}
+				
+			}
+		});
+		JButton btnUpdateStatus = new JButton("Update Status");
+		btnUpdateStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				uto.updateTickets(ut);
+				
+			}
+		});
+		btnUpdateStatus.setBounds(135, 296, 205, 29);
+		frame.getContentPane().add(btnUpdateStatus);
+				
 	}
 }
