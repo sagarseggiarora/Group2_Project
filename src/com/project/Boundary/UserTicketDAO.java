@@ -497,4 +497,26 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			}
 			
 		}
+		public void UpdateUser(User_Group2 up)
+		{
+			
+			String sql =" update user "
+					+ "set first_name=?,last_name=?,address=?,phone_number=? "
+					+"where email=?";
+			try {
+				ConnectDB();
+			this.pstmt = this.conn.prepareStatement(sql);
+			this.pstmt.setString(1,up.getFirst_name());
+			this.pstmt.setString(2,up.getLast_name());
+			this.pstmt.setString(3,up.getAddress());
+			this.pstmt.setString(4,up.getPhone_number());
+			this.pstmt.setString(5,up.getEmail());
+			this.pstmt.executeUpdate();
+			DisconnectDB();
+			}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 }
