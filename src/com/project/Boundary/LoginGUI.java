@@ -90,7 +90,8 @@ public class LoginGUI {
 				if(isValid) {
 					
 					lblResult.setText("login success");
-					DashboardGUI.main(null);
+					DashboardGUI dg = new DashboardGUI();
+					dg.Dashboard();
 				}
 				else
 				{

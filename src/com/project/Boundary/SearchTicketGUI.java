@@ -38,15 +38,11 @@ public class SearchTicketGUI {
 	private UserTicketDAO uto = new UserTicketDAO();
 	private DefaultTableModel tm;
 	private ListSelectionListener lsl;
-	private JTextField txtTicketnumber;
-	private JTextField txtEmailfromlist;
-	private JComboBox comboStatus;
-	private JTextField txtIssuefromlist;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void SearchTicket() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -123,15 +119,8 @@ public class SearchTicketGUI {
 			//Get the column value of the first column of the selected row
 			int currId = (int) table.getValueAt(table.getSelectedRow(),0);
 
-			//Get the student associated with the selected row
-			Tickets_Group2 cs = uto.getTicket(currId);
-			
-			//Populate the text fields with the ticket data
-			txtEmailfromlist.setText(cs.getEmail());
-			txtTicketnumber.setText(String.valueOf(cs.getTicket_number()));
-			txtIssuefromlist.setText(cs.getIssue());
-			//comboStatus.setSelectedItem(cs.getStatus());
-			
+			ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
+			vsg.ViewSelected(currId);
 		}
 		};
 		
@@ -176,41 +165,6 @@ public class SearchTicketGUI {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
-		
-		JLabel lblTicket = new JLabel("Ticket#");
-		lblTicket.setBounds(582, 14, 69, 20);
-		frame.getContentPane().add(lblTicket);
-		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(582, 50, 69, 20);
-		frame.getContentPane().add(lblEmail);
-		
-		JLabel lblIssue = new JLabel("Issue");
-		lblIssue.setBounds(582, 106, 69, 20);
-		frame.getContentPane().add(lblIssue);
-		
-		JLabel lblStatus = new JLabel("Status");
-		lblStatus.setBounds(585, 207, 69, 20);
-		frame.getContentPane().add(lblStatus);
-		
-		txtTicketnumber = new JTextField();
-		txtTicketnumber.setBounds(654, 11, 146, 26);
-		frame.getContentPane().add(txtTicketnumber);
-		txtTicketnumber.setColumns(10);
-		
-		txtEmailfromlist = new JTextField();
-		txtEmailfromlist.setBounds(654, 47, 146, 26);
-		frame.getContentPane().add(txtEmailfromlist);
-		txtEmailfromlist.setColumns(10);
-		
-		JComboBox comboStatus = new JComboBox();
-		comboStatus.setBounds(654, 204, 86, 26);
-		frame.getContentPane().add(comboStatus);
-		
-		txtIssuefromlist = new JTextField();
-		txtIssuefromlist.setColumns(10);
-		txtIssuefromlist.setBounds(654, 103, 146, 26);
-		frame.getContentPane().add(txtIssuefromlist);
 		
 	}
 }
