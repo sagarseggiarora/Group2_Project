@@ -14,7 +14,7 @@ public class DashboardGUI {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void Dashboard() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,8 +46,8 @@ public class DashboardGUI {
 		JButton btnCreateTicketExisting = new JButton("Create Ticket for \r\nExisting Customer");
 		btnCreateTicketExisting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ExistingCustGui.main(null);
-				//create ticket for Existing page
+				ExistingCustGui eg = new ExistingCustGui();
+				eg.Existing();
 			}
 		});
 		btnCreateTicketExisting.setBounds(31, 58, 313, 59);
@@ -56,7 +56,8 @@ public class DashboardGUI {
 		JButton btnCreateTicketNew = new JButton("Create Ticket for \r\nNew Customer");
 		btnCreateTicketNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateNewGUI.main(null);
+				CreateNewGUI cg = new CreateNewGUI();
+				cg.CreateNew();
 			}
 		});
 		btnCreateTicketNew.setBounds(422, 58, 321, 59);
@@ -65,7 +66,8 @@ public class DashboardGUI {
 		JButton btnViewAllTickets = new JButton("View All Tickets");
 		btnViewAllTickets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ViewTicketsGUI.main(null);
+				ViewTicketsGUI vg = new ViewTicketsGUI();
+				vg.ViewTickets();
 			}
 		});
 		btnViewAllTickets.setBounds(230, 157, 321, 59);
@@ -74,7 +76,8 @@ public class DashboardGUI {
 		JButton btnSearch = new JButton("Search Ticket");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchTicketGUI.main(null);
+				SearchTicketGUI sg = new SearchTicketGUI();
+				sg.SearchTicket();
 			}
 		});
 		btnSearch.setBounds(230, 252, 321, 59);

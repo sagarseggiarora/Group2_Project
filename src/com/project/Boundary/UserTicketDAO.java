@@ -145,39 +145,8 @@ public class UserTicketDAO {
 			return newCustID;
 		}
 		
-		/*public String getTicketID(String email) {
-			
-			String id="";
-			
-			String sql="SELECT Ticket_Number from tickets where email = ?";
-			
-			try {
-				
-				//Connect to the database
-				ConnectDB();
-					
-				this.pstmt = this.conn.prepareStatement(sql);
-				
-				pstmt.setString(0, email);
-				
-				this.rs = pstmt.executeQuery();
-				
-				id=rs.getString("Ticket_Number");
-				
-				//Disconnect from the Database
-				DisconnectDB();
-				
-			} catch (SQLException sx) {
-				System.out.println("Error Connecting to database");
-				System.out.println(sx.getMessage());
-				System.out.println(sx.getErrorCode());
-				System.out.println(sx.getSQLState());
-			}
-			return id;
-			
-		}*/
 		
-		public Tickets_Group2 getTickets(int i){
+		public Tickets_Group2 getTicket(int i){
 			
 			//Create an empty ticket to return
 			Tickets_Group2 gt = new Tickets_Group2();
@@ -222,6 +191,53 @@ public class UserTicketDAO {
 			return gt;
 		}
 		
+		public User_Group2 getUser(int i){
+			
+			//Create an empty ticket to return
+			User_Group2 gu = new User_Group2();
+			
+			//Create the SQL prepared statement
+			String sql = "SELECT * FROM tickets inner join user on tickets.Email = user.email WHERE Ticket_Number = ?";
+			
+			
+			try {
+				//Connect to the database 
+				ConnectDB();
+				
+				//Create the SQL query
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				//Set the parameter
+				this.pstmt.setInt(1,i);
+				
+				//Get the result
+				this.rs = this.pstmt.executeQuery();
+				
+				while (this.rs.next())	{
+					
+					gu.setUser_id(rs.getInt("user_id"));
+					gu.setFirst_name(rs.getString("first_name"));
+					gu.setLast_name(rs.getString("last_name"));
+					gu.setEmail(rs.getString("email"));
+					gu.setAddress(rs.getString("address"));
+					gu.setPhone_number(rs.getString("phone_number"));
+									
+				}
+				
+			} catch (SQLException se)	{
+				System.out.println("Error retriving user");
+				System.out.println(se.getMessage());
+				System.out.println(se.getErrorCode());
+				System.out.println(se.getSQLState());
+			} finally {
+				
+				//Disconnect from the database
+				DisconnectDB();
+			}
+			
+			return gu;
+		}
+		
 		
 		public ArrayList<Tickets_Group2> getTickets()	{
 			
@@ -242,6 +258,7 @@ public class UserTicketDAO {
 				nt.setTicket_number(rs.getInt("Ticket_Number"));
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
+				nt.setStatus(rs.getString("Status"));
 				
 				tl.add(nt);
 			
@@ -260,7 +277,84 @@ public class UserTicketDAO {
 			return tl;
 		}
 		
+		//
+		public ArrayList<Tickets_Group2> getOpenTickets()	{
+			
+			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
+			
+			String sql = "Select * from tickets where status ='open';";
+			
+			try {
+				ConnectDB();
+				
+				stmt = conn.createStatement();
+				
+				rs = stmt.executeQuery(sql);
+				
+			while (rs.next())	{
+				Tickets_Group2 nt = new Tickets_Group2();
+				
+				nt.setTicket_number(rs.getInt("Ticket_Number"));
+				nt.setEmail(rs.getString("Email"));
+				nt.setIssue(rs.getString("Issue"));
+				nt.setStatus(rs.getString("Status"));
+				
+				tl.add(nt);
+			
+			}
+			
+			
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return tl;
+		}
 		
+public ArrayList<Tickets_Group2> getCloseTickets()	{
+			
+			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
+			
+			String sql = "Select * from tickets where status ='close';";
+			
+			try {
+				ConnectDB();
+				
+				stmt = conn.createStatement();
+				
+				rs = stmt.executeQuery(sql);
+				
+			while (rs.next())	{
+				Tickets_Group2 nt = new Tickets_Group2();
+				
+				nt.setTicket_number(rs.getInt("Ticket_Number"));
+				nt.setEmail(rs.getString("Email"));
+				nt.setIssue(rs.getString("Issue"));
+				nt.setStatus(rs.getString("Status"));
+				
+				tl.add(nt);
+			
+			}
+
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return tl;
+		}
 		public ArrayList<Tickets_Group2> getTicketbyNumber(int Ticket_Number)	{
 			
 			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
@@ -356,11 +450,10 @@ public class UserTicketDAO {
 				cs.setLast_name(rs.getString("last_name"));
 				cs.setAddress(rs.getString("address"));
 				cs.setPhone_number(rs.getString("phone_number"));
-				System.out.println(rs.getString("fname"));
 			}
 			}
 			catch(SQLException sx)	{
-				System.out.println("Error Inserting Student");
+				System.out.println("Error Fetching Customer");
 				System.out.println(sx.getMessage());
 				System.out.println(sx.getErrorCode());
 				System.out.println(sx.getSQLState());
@@ -370,12 +463,13 @@ public class UserTicketDAO {
 		}
 		public void AddIssue(User_Group2 t)
 		{
-			String sql = "insert into tickets(Email,Issue) value(?,?)";
+			String sql = "insert into tickets(Email,Issue, status) value(?,?,?)";
 			try {
 				ConnectDB();
 				pstmt = conn.prepareStatement(sql);
 				this.pstmt.setString(1,t.getEmail());
 				this.pstmt.setString(2,t.getIssue());
+				this.pstmt.setString(3, "Open");
 				this.pstmt.execute();
 				System.out.println("Added");
 			} catch (SQLException e) {
