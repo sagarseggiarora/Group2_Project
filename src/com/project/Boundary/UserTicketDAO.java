@@ -143,39 +143,8 @@ public class UserTicketDAO {
 			return newCustID;
 		}
 		
-		/*public String getTicketID(String email) {
-			
-			String id="";
-			
-			String sql="SELECT Ticket_Number from tickets where email = ?";
-			
-			try {
-				
-				//Connect to the database
-				ConnectDB();
-					
-				this.pstmt = this.conn.prepareStatement(sql);
-				
-				pstmt.setString(0, email);
-				
-				this.rs = pstmt.executeQuery();
-				
-				id=rs.getString("Ticket_Number");
-				
-				//Disconnect from the Database
-				DisconnectDB();
-				
-			} catch (SQLException sx) {
-				System.out.println("Error Connecting to database");
-				System.out.println(sx.getMessage());
-				System.out.println(sx.getErrorCode());
-				System.out.println(sx.getSQLState());
-			}
-			return id;
-			
-		}*/
 		
-		public Tickets_Group2 getTickets(int i){
+		public Tickets_Group2 getTicket(int i){
 			
 			//Create an empty ticket to return
 			Tickets_Group2 gt = new Tickets_Group2();
@@ -354,11 +323,10 @@ public class UserTicketDAO {
 				cs.setLast_name(rs.getString("last_name"));
 				cs.setAddress(rs.getString("address"));
 				cs.setPhone_number(rs.getString("phone_number"));
-				System.out.println(rs.getString("fname"));
 			}
 			}
 			catch(SQLException sx)	{
-				System.out.println("Error Inserting Student");
+				System.out.println("Error Fetching Customer");
 				System.out.println(sx.getMessage());
 				System.out.println(sx.getErrorCode());
 				System.out.println(sx.getSQLState());
@@ -368,12 +336,13 @@ public class UserTicketDAO {
 		}
 		public void AddIssue(User_Group2 t)
 		{
-			String sql = "insert into tickets(Email,Issue) value(?,?)";
+			String sql = "insert into tickets(Email,Issue, status) value(?,?,?)";
 			try {
 				ConnectDB();
 				pstmt = conn.prepareStatement(sql);
 				this.pstmt.setString(1,t.getEmail());
 				this.pstmt.setString(2,t.getIssue());
+				this.pstmt.setString(3, "Open");
 				this.pstmt.execute();
 				System.out.println("Added");
 			} catch (SQLException e) {

@@ -40,8 +40,8 @@ public class SearchTicketGUI {
 	private ListSelectionListener lsl;
 	private JTextField txtTicketnumber;
 	private JTextField txtEmailfromlist;
-	private JTextArea txtrIssuefromlist;
 	private JComboBox comboStatus;
+	private JTextField txtIssuefromlist;
 
 	/**
 	 * Launch the application.
@@ -124,12 +124,12 @@ public class SearchTicketGUI {
 			int currId = (int) table.getValueAt(table.getSelectedRow(),0);
 
 			//Get the student associated with the selected row
-			Tickets_Group2 cs = uto.getTickets(currId);
+			Tickets_Group2 cs = uto.getTicket(currId);
 			
 			//Populate the text fields with the ticket data
 			txtEmailfromlist.setText(cs.getEmail());
 			txtTicketnumber.setText(String.valueOf(cs.getTicket_number()));
-			txtrIssuefromlist.setText(cs.getIssue());
+			txtIssuefromlist.setText(cs.getIssue());
 			//comboStatus.setSelectedItem(cs.getStatus());
 			
 		}
@@ -186,7 +186,7 @@ public class SearchTicketGUI {
 		frame.getContentPane().add(lblEmail);
 		
 		JLabel lblIssue = new JLabel("Issue");
-		lblIssue.setBounds(582, 86, 69, 20);
+		lblIssue.setBounds(582, 106, 69, 20);
 		frame.getContentPane().add(lblIssue);
 		
 		JLabel lblStatus = new JLabel("Status");
@@ -203,13 +203,14 @@ public class SearchTicketGUI {
 		frame.getContentPane().add(txtEmailfromlist);
 		txtEmailfromlist.setColumns(10);
 		
-		JTextArea txtrIssuefromlist = new JTextArea();
-		txtrIssuefromlist.setBounds(650, 86, 150, 105);
-		frame.getContentPane().add(txtrIssuefromlist);
-		
 		JComboBox comboStatus = new JComboBox();
 		comboStatus.setBounds(654, 204, 86, 26);
 		frame.getContentPane().add(comboStatus);
+		
+		txtIssuefromlist = new JTextField();
+		txtIssuefromlist.setColumns(10);
+		txtIssuefromlist.setBounds(654, 103, 146, 26);
+		frame.getContentPane().add(txtIssuefromlist);
 		
 	}
 }
