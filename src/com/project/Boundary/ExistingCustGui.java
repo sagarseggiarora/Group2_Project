@@ -4,8 +4,10 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
 import javax.swing.JButton;
@@ -99,25 +101,21 @@ public class ExistingCustGui {
 		frame.getContentPane().add(lblPhoneNumber);
 		
 		FName = new JTextField();
-		FName.setEditable(false);
 		FName.setBounds(98, 66, 86, 20);
 		frame.getContentPane().add(FName);
 		FName.setColumns(10);
 		
 		Lname = new JTextField();
-		Lname.setEditable(false);
 		Lname.setBounds(98, 100, 86, 20);
 		frame.getContentPane().add(Lname);
 		Lname.setColumns(10);
 		
 		AddrField = new JTextField();
-		AddrField.setEditable(false);
 		AddrField.setBounds(97, 138, 86, 20);
 		frame.getContentPane().add(AddrField);
 		AddrField.setColumns(10);
 		
 		numField = new JTextField();
-		numField.setEditable(false);
 		numField.setBounds(97, 178, 86, 20);
 		frame.getContentPane().add(numField);
 		numField.setColumns(10);
@@ -139,9 +137,36 @@ public class ExistingCustGui {
 				tf.setEmail(gtEmail.getText().trim());
 				tf.setIssue(txtIssue.getText().trim());
 				dao1.AddIssue(tf);
+				
+				Tickets_Group2 tf1 = new Tickets_Group2();
+				tf1.setEmail(gtEmail.getText().trim());
+				dao1.gtTicketNumberNewCust(tf1);
+				
+				//lbl1.setText(String.valueOf(tf.getTicket_number()));
+				JOptionPane.showMessageDialog(null,"Your Generated Ticket Number is: "+ String.valueOf(tf1.getTicket_number()));
 			}
 		});
 		btnAdd.setBounds(195, 354, 142, 23);
 		frame.getContentPane().add(btnAdd);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				User_Group2 tf2 = new User_Group2();
+				dao1 = new UserTicketDAO();
+				//tf2.setEmail(gtEmail.getText().trim());
+				tf2.setFirst_name(FName.getText().trim());
+				tf2.setLast_name(Lname.getText().trim());
+				tf2.setAddress(AddrField.getText().trim());
+				tf2.setPhone_number(numField.getText().trim());
+				tf2.setEmail(gtEmail.getText().trim());
+				dao1.UpdateUser(tf2);
+				
+				
+				
+			}
+		});
+		btnUpdate.setBounds(302, 65, 89, 23);
+		frame.getContentPane().add(btnUpdate);
 	}
 }

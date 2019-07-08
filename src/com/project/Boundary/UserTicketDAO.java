@@ -21,7 +21,7 @@ public class UserTicketDAO {
 		 private ResultSet rs = null;
 		 private Statement stmt = null;
 		 private PreparedStatement pstmt = null;
-		
+		 
 		
 		public void ConnectDB()	{
 			
@@ -131,8 +131,9 @@ public class UserTicketDAO {
 				this.stmt = this.conn.createStatement();
 				
 				//Execute the statement
+				 
 				newCustID = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-
+				
 				DisconnectDB();
 			} catch (SQLException sx)	{
 				System.out.println("Error Inserting Student");
@@ -140,7 +141,8 @@ public class UserTicketDAO {
 				System.out.println(sx.getErrorCode());
 				System.out.println(sx.getSQLState());
 			}
-
+			
+			
 			return newCustID;
 		}
 		
@@ -476,6 +478,7 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 				e.printStackTrace();
 			}
 		}
+
 		
 		public void updateTickets(Tickets_Group2 ut)	{
 			
@@ -512,4 +515,48 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			}
 			
 		}
+
+		public void gtTicketNumberNewCust(Tickets_Group2 tn)
+		{
+			String sql = "select Ticket_Number from tickets where email=?";
+			try {
+				ConnectDB();
+				pstmt = conn.prepareStatement(sql);
+				this.pstmt.setString(1,tn.getEmail().trim());
+				rs= pstmt.executeQuery();
+				while(rs.next())
+				{
+					tn.setTicket_number(rs.getInt("Ticket_Number"));
+				}
+				
+			}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		public void UpdateUser(User_Group2 up)
+		{
+			
+			String sql =" update user "
+					+ "set first_name=?,last_name=?,address=?,phone_number=? "
+					+"where email=?";
+			try {
+				ConnectDB();
+			this.pstmt = this.conn.prepareStatement(sql);
+			this.pstmt.setString(1,up.getFirst_name());
+			this.pstmt.setString(2,up.getLast_name());
+			this.pstmt.setString(3,up.getAddress());
+			this.pstmt.setString(4,up.getPhone_number());
+			this.pstmt.setString(5,up.getEmail());
+			this.pstmt.executeUpdate();
+			DisconnectDB();
+			}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 }
