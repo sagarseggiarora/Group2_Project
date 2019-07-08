@@ -26,7 +26,7 @@ public class ExistingCustGui {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void Existing() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

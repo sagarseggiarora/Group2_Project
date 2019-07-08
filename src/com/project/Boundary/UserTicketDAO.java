@@ -189,6 +189,53 @@ public class UserTicketDAO {
 			return gt;
 		}
 		
+		public User_Group2 getUser(int i){
+			
+			//Create an empty ticket to return
+			User_Group2 gu = new User_Group2();
+			
+			//Create the SQL prepared statement
+			String sql = "SELECT * FROM tickets inner join user on tickets.Email = user.email WHERE Ticket_Number = ?";
+			
+			
+			try {
+				//Connect to the database 
+				ConnectDB();
+				
+				//Create the SQL query
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				//Set the parameter
+				this.pstmt.setInt(1,i);
+				
+				//Get the result
+				this.rs = this.pstmt.executeQuery();
+				
+				while (this.rs.next())	{
+					
+					gu.setUser_id(rs.getInt("user_id"));
+					gu.setFirst_name(rs.getString("first_name"));
+					gu.setLast_name(rs.getString("last_name"));
+					gu.setEmail(rs.getString("email"));
+					gu.setAddress(rs.getString("address"));
+					gu.setPhone_number(rs.getString("phone_number"));
+									
+				}
+				
+			} catch (SQLException se)	{
+				System.out.println("Error retriving user");
+				System.out.println(se.getMessage());
+				System.out.println(se.getErrorCode());
+				System.out.println(se.getSQLState());
+			} finally {
+				
+				//Disconnect from the database
+				DisconnectDB();
+			}
+			
+			return gu;
+		}
+		
 		
 		public ArrayList<Tickets_Group2> getTickets()	{
 			
