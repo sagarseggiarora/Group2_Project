@@ -477,4 +477,24 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 				e.printStackTrace();
 			}
 		}
+		public void gtTicketNumberNewCust(Tickets_Group2 tn)
+		{
+			String sql = "select Ticket_Number from tickets where email=?";
+			try {
+				ConnectDB();
+				pstmt = conn.prepareStatement(sql);
+				this.pstmt.setString(1,tn.getEmail().trim());
+				rs= pstmt.executeQuery();
+				while(rs.next())
+				{
+					tn.setTicket_number(rs.getInt("Ticket_Number"));
+				}
+				
+			}
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 }

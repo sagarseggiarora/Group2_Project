@@ -4,8 +4,10 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
 import javax.swing.JButton;
@@ -139,6 +141,13 @@ public class ExistingCustGui {
 				tf.setEmail(gtEmail.getText().trim());
 				tf.setIssue(txtIssue.getText().trim());
 				dao1.AddIssue(tf);
+				
+				Tickets_Group2 tf1 = new Tickets_Group2();
+				tf1.setEmail(gtEmail.getText().trim());
+				dao1.gtTicketNumberNewCust(tf1);
+				
+				//lbl1.setText(String.valueOf(tf.getTicket_number()));
+				JOptionPane.showMessageDialog(null,"Your Generated Ticket Number is: "+ String.valueOf(tf1.getTicket_number()));
 			}
 		});
 		btnAdd.setBounds(195, 354, 142, 23);

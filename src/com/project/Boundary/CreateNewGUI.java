@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.project.Entity.Tickets_Group2;
@@ -121,6 +122,10 @@ public class CreateNewGUI {
 		txtrIssue.setBounds(159, 307, 146, 99);
 		frame.getContentPane().add(txtrIssue);
 		
+		JLabel lbl1 = new JLabel("New label");
+		lbl1.setBounds(465, 192, 46, 14);
+		frame.getContentPane().add(lbl1);
+		
 		JButton btnCreateTicket = new JButton("Create Ticket");
 		btnCreateTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -141,7 +146,13 @@ public class CreateNewGUI {
 				
 			    dao.newCustomer(u1);
 				dao.newTicket(t1);
+				Tickets_Group2 tf = new Tickets_Group2();
+				//dao1 = newUserTicketDAO();
+				tf.setEmail(txtEmail.getText().trim());
+				dao.gtTicketNumberNewCust(tf);
 				
+				//lbl1.setText(String.valueOf(tf.getTicket_number()));
+				JOptionPane.showMessageDialog(null,"Your Generated Ticket Number is: "+ String.valueOf(tf.getTicket_number()));
 				
 				//String ticket_NO=dao.getTicketID(email);
 				//txtTicket.setText(ticket_NO);
@@ -156,6 +167,8 @@ public class CreateNewGUI {
 		JLabel lblIssue = new JLabel("Issue");
 		lblIssue.setBounds(15, 307, 69, 20);
 		frame.getContentPane().add(lblIssue);
+		
+		
 		
 		
 		
