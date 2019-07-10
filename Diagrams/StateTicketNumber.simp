@@ -34,10 +34,6 @@
     </entity-names>
     <entity-ids>
       <counter>
-        <item-type type-id="" type="AbstractElementGroup" />
-        <value>198</value>
-      </counter>
-      <counter>
         <item-type type-id="initial-state" type="UmlInitialState" />
         <value>2</value>
       </counter>
@@ -69,6 +65,10 @@
         <item-type type-id="final-state" type="UmlFinalState" />
         <value>2</value>
       </counter>
+      <counter>
+        <item-type type-id="" type="AbstractElementGroup" />
+        <value>19</value>
+      </counter>
     </entity-ids>
     <diagrams>
       <counter>
@@ -80,10 +80,21 @@
   </counters>
   <alias-groups />
   <management uid="md-fbd9dcac13714929acc9b38a32c5fb96" name="" task-id-sequence="0">
+    <working-schedule uid="ws-2a5d8a19fd9f46d0a7ebba0f8ce57e28" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
     <persons>
       <person id="P9450a3b1ed4640f695d43d71ff5c0b0b">
         <first-name>Parth</first-name>
         <last-name>Khaneja</last-name>
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+        <working-schedule uid="ws-818506df1ee84823a1853c85399a87e5" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+      </person>
+      <person id="P303356abdfe2495ca8eac10dbf9f61a0">
+        <first-name>Sagar</first-name>
+        <last-name>Arora</last-name>
         <role />
         <e-mail />
         <phone-number />
@@ -122,7 +133,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-statechart" id="p474194374dfa4e7da98ef7622b04a0a9_415867404" name="StateMachineDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false">
+      <diagram type="uml-statechart" id="p474194374dfa4e7da98ef7622b04a0a9_415867404" name="StateMachineDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="599,0">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -134,7 +145,7 @@
           </authors>
           <description />
           <creation-date>07/09/2019 21:15:53</creation-date>
-          <change-date>07/09/2019 21:41:52</change-date>
+          <change-date>07/10/2019 02:21:05</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -173,14 +184,6 @@
           <item id="517c249833f64566b49a512e3fdf3bcb" cid="ELEM012" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P9450a3b1ed4640f695d43d71ff5c0b0b" creation-date="07/09/2019 21:41:41" from="da6a50ae2a3c4187bcb4ba2ec1466a93" to="26a317272d1a47958b68c94addb9e9a4">
             <transition guard="" behaviourExpression="" />
           </item>
-          <item id="eb9634d414dd417c8a370cf1e22a3d8d" cid="ELEM001" type="fork" name="Fork1" style-class="" visibility="package" change-tracking-state="added" creator="P9450a3b1ed4640f695d43d71ff5c0b0b" creation-date="07/09/2019 21:35:13" />
-          <item id="9bf8d6a5ded74d0e9a64836d7117dd80" cid="ELEM007" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P9450a3b1ed4640f695d43d71ff5c0b0b" creation-date="07/09/2019 21:35:13" from="26a317272d1a47958b68c94addb9e9a4" to="eb9634d414dd417c8a370cf1e22a3d8d">
-            <transition guard="" behaviourExpression="" />
-          </item>
-          <item id="bc36b3ed4a5b4c87bc554db8916dfec1" cid="ELEM002" type="fork" name="Fork2" style-class="" visibility="package" change-tracking-state="added" creator="P9450a3b1ed4640f695d43d71ff5c0b0b" creation-date="07/09/2019 21:35:20" />
-          <item id="1ea6bcbe32e349918d882e579334c6d5" cid="ELEM008" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P9450a3b1ed4640f695d43d71ff5c0b0b" creation-date="07/09/2019 21:35:20" from="26a317272d1a47958b68c94addb9e9a4" to="bc36b3ed4a5b4c87bc554db8916dfec1">
-            <transition guard="" behaviourExpression="" />
-          </item>
           <item id="f690c9260a15470dba038a8c69fdfec8" cid="ST007" type="state" name="Change in status" style-class="" visibility="package" change-tracking-state="added" creator="P9450a3b1ed4640f695d43d71ff5c0b0b" creation-date="07/09/2019 21:37:22">
             <state-invariant />
             <actions>
@@ -216,30 +219,6 @@
           </item>
           <item id="26a317272d1a47958b68c94addb9e9a4" iid="c7ee366443ed47beafdcc4a345a6c393" anchor="None" creation-date="07/09/2019 21:30:03" order-index="5" type="entity">
             <layout ax="516.045" ay="219" awidth="355" aheight="63" x="516.045" y="219" width="355" height="63" />
-          </item>
-          <item id="eb9634d414dd417c8a370cf1e22a3d8d" iid="e8da70f6bd124ddc82dd1e3d1df5c8ac" creation-date="07/09/2019 21:35:13" order-index="7" type="entity">
-            <layout ax="971.09" ay="245.5" awidth="250" aheight="10" x="971.09" y="245.5" width="250" height="10" />
-          </item>
-          <item id="9bf8d6a5ded74d0e9a64836d7117dd80" iid="321d899239fe42039ec1cb96a77f96eb" creation-date="07/09/2019 21:35:13" order-index="8" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="871" y1="250" x2="971" y2="250" start-border-pos="0.373015873015873" end-border-pos="0.8875" name-position="0,0">
-              <points>
-                <point x="871" y="250" />
-                <point x="971" y="250" />
-              </points>
-            </layout>
-            <relation from="26a317272d1a47958b68c94addb9e9a4" from-iid="c7ee366443ed47beafdcc4a345a6c393" to="eb9634d414dd417c8a370cf1e22a3d8d" to-iid="e8da70f6bd124ddc82dd1e3d1df5c8ac" />
-          </item>
-          <item id="bc36b3ed4a5b4c87bc554db8916dfec1" iid="4c510db773c948fda920ea9033483d24" creation-date="07/09/2019 21:35:20" order-index="9" type="entity">
-            <layout ax="971.09" ay="275.5" awidth="250" aheight="10" x="971.09" y="275.5" width="250" height="10" />
-          </item>
-          <item id="1ea6bcbe32e349918d882e579334c6d5" iid="3ebd2ad8c2b14c22ada638aa370ecb61" creation-date="07/09/2019 21:35:20" order-index="10" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="871" y1="263" x2="1042" y2="276" start-border-pos="0.425432356577071" end-border-pos="0.07131005859375" name-position="0,0">
-              <points>
-                <point x="871" y="263" />
-                <point x="1042" y="276" />
-              </points>
-            </layout>
-            <relation from="26a317272d1a47958b68c94addb9e9a4" from-iid="c7ee366443ed47beafdcc4a345a6c393" to="bc36b3ed4a5b4c87bc554db8916dfec1" to-iid="4c510db773c948fda920ea9033483d24" />
           </item>
           <item id="f690c9260a15470dba038a8c69fdfec8" iid="bad8788c328944a28dd7f81351f3b07a" anchor="None" creation-date="07/09/2019 21:37:22" order-index="11" type="entity">
             <layout ax="76" ay="204.5" awidth="341" aheight="92" x="76" y="204.5" width="341" height="92" />
