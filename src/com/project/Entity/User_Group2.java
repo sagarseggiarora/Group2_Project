@@ -2,6 +2,10 @@ package com.project.Entity;
 
 import java.util.Vector;
 
+/*
+ * User class
+ */
+
 public class User_Group2 {
 	private int user_id = 0;
 	private String first_name = "";
@@ -11,7 +15,9 @@ public class User_Group2 {
 	private String phone_number = "";
 	private String issue="";
 	
-	
+	/*
+	 * Getters and Setters
+	 */
 	public String getIssue() {
 		return issue;
 	}

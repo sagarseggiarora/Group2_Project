@@ -126,6 +126,9 @@ public class CreateNewGUI {
 		lbl1.setBounds(465, 192, 46, 14);
 		frame.getContentPane().add(lbl1);
 		
+		/*
+		 * Creating a new ticket and a new user in database
+		 */
 		JButton btnCreateTicket = new JButton("Create Ticket");
 		btnCreateTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -156,8 +159,6 @@ public class CreateNewGUI {
 				
 				//String ticket_NO=dao.getTicketID(email);
 				//txtTicket.setText(ticket_NO);
-				
-				
 				
 			}
 		});

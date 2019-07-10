@@ -2,12 +2,20 @@ package com.project.Entity;
 
 import java.util.Vector;
 
+/*
+ * Tickets Class
+ */
 public class Tickets_Group2 {
 	
 	private int ticket_number;
 	private String email = "";
 	private String issue = "";
 	private String status = "";
+	
+	
+	/*
+	 * Getters and Setters 
+	 */
 	
 	public String getStatus() {
 		return status;

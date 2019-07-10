@@ -43,6 +43,11 @@ public class DashboardGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		/*
+		 * Setting corresponding frames for all the buttons
+		 */
+		
+		
 		JButton btnCreateTicketExisting = new JButton("Create Ticket for \r\nExisting Customer");
 		btnCreateTicketExisting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

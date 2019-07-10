@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.project.Entity.Login_Group2;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -78,6 +77,10 @@ public class LoginGUI {
 		JLabel lblResult = new JLabel("");
 		lblResult.setBounds(238, 274, 69, 20);
 		frame.getContentPane().add(lblResult);
+		
+		/*
+		 * Verifying login 
+		 */
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {

@@ -22,7 +22,9 @@ public class UserTicketDAO {
 		 private Statement stmt = null;
 		 private PreparedStatement pstmt = null;
 		 
-		
+		/*
+		 * Connect to database
+		 */
 		public void ConnectDB()	{
 			
 			try {
@@ -42,25 +44,29 @@ public class UserTicketDAO {
 				}
 			}
 				
-		
-		
-	public void DisconnectDB()	{
-		try {
-			this.conn.close();
-			if (this.conn.isClosed()) {
-				System.out.println("Database connection is closed.");
-			} else {
-				System.out.println("There was a problem disconnecting from the database!");
-				
-			}
-		} catch (SQLException sx)	{
-			System.out.println("Error Connecting to database");
-			System.out.println(sx.getMessage());
-			System.out.println(sx.getErrorCode());
-			System.out.println(sx.getSQLState());
-			}
+		/*
+		 * Disconnect from database
+		 */
+		public void DisconnectDB()	{
+			try {
+				this.conn.close();
+				if (this.conn.isClosed()) {
+					System.out.println("Database connection is closed.");
+				} else {
+					System.out.println("There was a problem disconnecting from the database!");
+					
+				}
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
 		}
-	
+		
+		/*
+		 * Verify if the username and password is correct
+		 */
 		public boolean validate(String username, String Password)
 		{
 			String sql ="select username,password from login where username = '"+username+"' and password= '"+Password+"'";
@@ -80,9 +86,9 @@ public class UserTicketDAO {
 				}
 				DisconnectDB();
 
-	}
+			}
 
-		catch(SQLException sx)
+			catch(SQLException sx)
 			{
 				System.out.println("Error connection to database");
 				System.out.println(sx.getMessage());
@@ -93,6 +99,9 @@ public class UserTicketDAO {
 			
 		}
 		
+		/*
+		 * Generate new ticket
+		 */
 		public int newTicket(Tickets_Group2 tick) {
 			
 			int ticketNumber=0;
@@ -115,6 +124,9 @@ public class UserTicketDAO {
 			
 		}
 		
+		/*
+		 * Create a new user
+		 */
 		public int newCustomer(User_Group2 cust)	{
 			
 			int newCustID = 0;
@@ -146,7 +158,11 @@ public class UserTicketDAO {
 			return newCustID;
 		}
 		
-		
+		/**
+		 * Get ticket object by ticket number
+		 * @param i Ticket number
+		 * @return Ticket object 
+		 */
 		public Tickets_Group2 getTicket(int i){
 			
 			//Create an empty ticket to return
@@ -192,6 +208,11 @@ public class UserTicketDAO {
 			return gt;
 		}
 		
+		/**
+		 * Get user object by ticket number
+		 * @param i Ticket number
+		 * @return User object 
+		 */
 		public User_Group2 getUser(int i){
 			
 			//Create an empty ticket to return
@@ -239,7 +260,10 @@ public class UserTicketDAO {
 			return gu;
 		}
 		
-		
+		/**
+		 * Get all tickets
+		 * @return Array List of all tickets in the database
+		 */
 		public ArrayList<Tickets_Group2> getTickets()	{
 			
 			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
@@ -278,7 +302,10 @@ public class UserTicketDAO {
 			return tl;
 		}
 		
-		//
+		/**
+		 * Get all open tickets
+		 * @return Array List of all open tickets in the database
+		 */
 		public ArrayList<Tickets_Group2> getOpenTickets()	{
 			
 			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
@@ -319,7 +346,11 @@ public class UserTicketDAO {
 			return tl;
 		}
 		
-public ArrayList<Tickets_Group2> getCloseTickets()	{
+		/**
+		 * Get all closed tickets
+		 * @return Array List of all closed tickets in the database
+		 */
+		public ArrayList<Tickets_Group2> getCloseTickets()	{
 			
 			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
 			
@@ -356,6 +387,12 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			
 			return tl;
 		}
+		
+		/**
+		 * Get the ticket from ticket number
+		 * @param Ticket_Number
+		 * @return Array List of tickets matching the ticket number
+		 */
 		public ArrayList<Tickets_Group2> getTicketbyNumber(int Ticket_Number)	{
 			
 			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
@@ -396,7 +433,11 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			return tl;
 		}
 
-		
+		/**
+		 * Get all the tickets for the entered email
+		 * @param Email
+		 * @return Array List of tickets for the email
+		 */
 		public ArrayList<Tickets_Group2> getTicketbyEmail(String Email)	{
 			
 			ArrayList<Tickets_Group2> tl = new ArrayList<Tickets_Group2>();
@@ -436,6 +477,12 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			
 			return tl;
 		}
+		
+		/**
+		 * Returns User object based on the email entered
+		 * @param cs Email id of the user
+		 * @return User object for the entered email
+		 */
 		public User_Group2 gtUser(User_Group2 cs)
 		{
 			try
@@ -462,6 +509,11 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			return cs;
 			
 		}
+		
+		/**
+		 * Add issue for existing user
+		 * @param t User object
+		 */
 		public void AddIssue(User_Group2 t)
 		{
 			String sql = "insert into tickets(Email,Issue, status) value(?,?,?)";
@@ -479,7 +531,9 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			}
 		}
 
-		
+		/** Update the ticket with passed values
+		 * @param ut Ticket object
+		 */
 		public void updateTickets(Tickets_Group2 ut)	{
 			
 			//Update Query
@@ -515,7 +569,11 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			}
 			
 		}
-
+		
+		/**
+		 * Gets ticket number generated
+		 * @param tn Ticket object
+		 */
 		public void gtTicketNumberNewCust(Tickets_Group2 tn)
 		{
 			String sql = "select Ticket_Number from tickets where email=?";
@@ -536,6 +594,11 @@ public ArrayList<Tickets_Group2> getCloseTickets()	{
 			}
 			
 		}
+		
+		/**
+		 * Updates user details
+		 * @param up User object
+		 */
 		public void UpdateUser(User_Group2 up)
 		{
 			

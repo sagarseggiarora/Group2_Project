@@ -105,10 +105,17 @@ public class ViewSelectedTicketGUI {
 		cbStatus.addItem("Open");
 		cbStatus.addItem("Close");
 		
+		/*
+		 * Get ticket details from ticket number
+		 */
+		
 		Tickets_Group2 cs = uto.getTicket(id);
 		User_Group2 ug = uto.getUser(id);;
 		
-		//Populate the text fields with the ticket data
+		/*
+		 * Populate the text fields with the ticket data
+		 */
+		
 		txtTicketNum.setText(String.valueOf(cs.getTicket_number()));
 		txtEmail.setText(cs.getEmail());
 		txtName.setText(ug.getFirst_name()+ " " + ug.getLast_name());
@@ -130,6 +137,11 @@ public class ViewSelectedTicketGUI {
 				
 			}
 		});
+		
+		/*
+		 * Update ticket status
+		 */
+		
 		JButton btnUpdateStatus = new JButton("Update Status");
 		btnUpdateStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

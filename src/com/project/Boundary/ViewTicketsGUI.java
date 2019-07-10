@@ -50,6 +50,9 @@ public class ViewTicketsGUI {
 		});
 	}
 	
+	/*
+	 * Setting the table model to show the result 
+	 */
 	
 	private void addTableData()	{
 		
@@ -121,6 +124,11 @@ public class ViewTicketsGUI {
 		JLabel lblFilterBy = new JLabel("Filter by");
 		lblFilterBy.setBounds(53, 16, 69, 20);
 		frame.getContentPane().add(lblFilterBy);
+		
+		/*
+		 * Get all the tickets and display them in the table 
+		 */
+		
 		tl = uto.getTickets();
 		addTableData();
 		
@@ -130,6 +138,10 @@ public class ViewTicketsGUI {
 		comboStatus.addItem("Select");
 		comboStatus.addItem("Open");
 		comboStatus.addItem("Close");
+		
+		/*
+		 * Add open/close filter for the table to view tickets with open/close status  
+		 */
 		
 		comboStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -66,6 +66,10 @@ public class ExistingCustGui {
 		frame.getContentPane().add(gtEmail);
 		gtEmail.setColumns(10);
 		
+		/*
+		 * Fetching the customer details using email
+		 */
+		
 		JButton fetchInfo = new JButton("Fetch");
 		fetchInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -129,6 +133,10 @@ public class ExistingCustGui {
 		frame.getContentPane().add(txtIssue);
 		txtIssue.setColumns(10);
 		
+		/*
+		 * Creating a new issue for an existing customer
+		 */
+		
 		JButton btnAdd = new JButton("ADD ISSUE");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -148,6 +156,10 @@ public class ExistingCustGui {
 		});
 		btnAdd.setBounds(195, 354, 142, 23);
 		frame.getContentPane().add(btnAdd);
+		
+		/*
+		 * Updating details of fetched customer 
+		 */
 		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {

@@ -55,7 +55,9 @@ public class SearchTicketGUI {
 		});
 	}
 	
-	
+	/*
+	 * Setting the table model to show the result 
+	 */
 	
 	private void addTableData()	{
 		
@@ -130,6 +132,10 @@ public class SearchTicketGUI {
 		frame.getContentPane().add(txtSearchNum);
 		txtSearchNum.setColumns(10);
 		
+		/*
+		 * Searching the ticket by ticket number
+		 */
+		
 		JButton btnSearchByNum = new JButton("Search by Ticket Number");
 		btnSearchByNum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -146,6 +152,10 @@ public class SearchTicketGUI {
 		txtSearchEmail.setColumns(10);
 		txtSearchEmail.setBounds(188, 62, 139, 22);
 		frame.getContentPane().add(txtSearchEmail);
+
+		/*
+		 * Searching the ticket by email
+		 */
 		
 		JButton btnSearchByEmail = new JButton("Search by Email");
 		btnSearchByEmail.addActionListener(new ActionListener() {
