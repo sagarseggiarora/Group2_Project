@@ -1,5 +1,6 @@
 package com.project.Boundary;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,12 +8,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.project.Controller.Validations;
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class ExistingCustGui {
 
@@ -24,6 +27,7 @@ public class ExistingCustGui {
 	private JTextField numField;
 	private JTextField txtIssue;
 	UserTicketDAO dao1;
+	private static Validations v = new Validations();
 
 	/**
 	 * Launch the application.
@@ -66,6 +70,11 @@ public class ExistingCustGui {
 		frame.getContentPane().add(gtEmail);
 		gtEmail.setColumns(10);
 		
+		JLabel lblResult = new JLabel("");
+		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblResult.setBounds(206, 170, 282, 49);
+		frame.getContentPane().add(lblResult);
+		
 		/*
 		 * Fetching the customer details using email
 		 */
@@ -73,15 +82,27 @@ public class ExistingCustGui {
 		JButton fetchInfo = new JButton("Fetch");
 		fetchInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			dao1 = new UserTicketDAO();
-			User_Group2 ug = new User_Group2();
-			ug.setEmail(gtEmail.getText().trim());
-			dao1.gtUser(ug);
-			FName.setText(ug.getFirst_name());
-			Lname.setText(ug.getLast_name());
-			AddrField.setText(ug.getAddress());
-			numField.setText(ug.getPhone_number());
-			
+				if(v.validateEmail(gtEmail.getText())) {
+					dao1 = new UserTicketDAO();
+					User_Group2 ug = new User_Group2();
+					ug.setEmail(gtEmail.getText().trim());
+					dao1.gtUser(ug);
+					if(v.isNotEmpty(ug.getFirst_name())) {
+						FName.setText(ug.getFirst_name());
+						Lname.setText(ug.getLast_name());
+						AddrField.setText(ug.getAddress());
+						numField.setText(ug.getPhone_number());
+						lblResult.setText("");
+						gtEmail.setEditable(false);
+					} else {
+						lblResult.setForeground(Color.red);
+						lblResult.setText("Email ID not found in records");
+					}
+				}
+				else {
+					lblResult.setForeground(Color.red);
+					lblResult.setText("Please enter a valid Email ID");
+				}
 				
 			}
 		});
@@ -140,18 +161,23 @@ public class ExistingCustGui {
 		JButton btnAdd = new JButton("ADD ISSUE");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				User_Group2 tf = new User_Group2();
-				dao1 = new UserTicketDAO();
-				tf.setEmail(gtEmail.getText().trim());
-				tf.setIssue(txtIssue.getText().trim());
-				dao1.AddIssue(tf);
-				
-				Tickets_Group2 tf1 = new Tickets_Group2();
-				tf1.setEmail(gtEmail.getText().trim());
-				dao1.gtTicketNumberNewCust(tf1);
-				
-				//lbl1.setText(String.valueOf(tf.getTicket_number()));
-				JOptionPane.showMessageDialog(null,"Your Generated Ticket Number is: "+ String.valueOf(tf1.getTicket_number()));
+				if(v.isNotEmpty(txtIssue.getText())) {
+					User_Group2 tf = new User_Group2();
+					dao1 = new UserTicketDAO();
+					tf.setEmail(gtEmail.getText().trim());
+					tf.setIssue(txtIssue.getText().trim());
+					dao1.AddIssue(tf);
+					
+					Tickets_Group2 tf1 = new Tickets_Group2();
+					tf1.setEmail(gtEmail.getText().trim());
+					dao1.gtTicketNumberNewCust(tf1);
+					
+					lblResult.setForeground(Color.GREEN);
+					lblResult.setText("Ticket ID Generated: " + String.valueOf(tf1.getTicket_number()));
+				} else {
+					lblResult.setForeground(Color.red);
+					lblResult.setText("Issue field cannot be empty");
+				}
 			}
 		});
 		btnAdd.setBounds(195, 354, 142, 23);
@@ -164,21 +190,29 @@ public class ExistingCustGui {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				User_Group2 tf2 = new User_Group2();
-				dao1 = new UserTicketDAO();
-				//tf2.setEmail(gtEmail.getText().trim());
-				tf2.setFirst_name(FName.getText().trim());
-				tf2.setLast_name(Lname.getText().trim());
-				tf2.setAddress(AddrField.getText().trim());
-				tf2.setPhone_number(numField.getText().trim());
-				tf2.setEmail(gtEmail.getText().trim());
-				dao1.UpdateUser(tf2);
-				
-				
-				
+				if(v.isNotEmpty(FName.getText()) && v.isNotEmpty(Lname.getText()) && v.isNotEmpty(AddrField.getText()) && v.isNotEmpty(numField.getText())) {
+					if(v.validatePhone(numField.getText()))	{
+						User_Group2 tf2 = new User_Group2();
+						dao1 = new UserTicketDAO();
+						tf2.setFirst_name(FName.getText().trim());
+						tf2.setLast_name(Lname.getText().trim());
+						tf2.setAddress(AddrField.getText().trim());
+						tf2.setPhone_number(numField.getText().trim());
+						tf2.setEmail(gtEmail.getText().trim());
+						dao1.UpdateUser(tf2);
+						lblResult.setText("");
+					} else {
+						lblResult.setForeground(Color.red);
+						lblResult.setText("Please enter a valid Phone Number");
+					}
+				} else {
+					lblResult.setForeground(Color.red);
+					lblResult.setText("Input fields cannot be empty.");
+				}
 			}
 		});
 		btnUpdate.setBounds(302, 65, 89, 23);
 		frame.getContentPane().add(btnUpdate);
+		
 	}
 }

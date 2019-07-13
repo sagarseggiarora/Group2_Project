@@ -1,5 +1,6 @@
 package com.project.Boundary;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,7 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-
+import com.project.Controller.Validations;
 import com.project.Controller.WordWrapCellRenderer;
 import com.project.Entity.Tickets_Group2;
 
@@ -24,6 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
+import java.awt.Font;
 
 public class SearchTicketGUI {
 
@@ -36,8 +38,10 @@ public class SearchTicketGUI {
 	
 	int i = 0;
 	private UserTicketDAO uto = new UserTicketDAO();
+	private static Validations v = new Validations();
 	private DefaultTableModel tm;
 	private ListSelectionListener lsl;
+	private JLabel lblResult;
 
 	/**
 	 * Launch the application.
@@ -61,33 +65,45 @@ public class SearchTicketGUI {
 	
 	private void addTableData()	{
 		
-		table.getSelectionModel().removeListSelectionListener(lsl);
-		
-		tm = new DefaultTableModel();
-		
-		tm.addColumn("Ticket Number");
-		tm.addColumn("Email ID");
-		tm.addColumn("Issue");
-		tm.addColumn("Status");
-		
 		ArrayList<Tickets_Group2> tl = getSearchedTicket();
 		
-		for (Tickets_Group2 t: tl)	{
-			tm.addRow(t.getVector());
+		if(tl.isEmpty()) {
+			lblResult.setForeground(Color.red);
+			lblResult.setText("No ticket found!");
+			tm = new DefaultTableModel();
+			table.setModel(tm);
+		} 
+		else {
+			lblResult.setForeground(Color.green);
+			lblResult.setText("Ticket found!");
+			
+			table.getSelectionModel().removeListSelectionListener(lsl);
+			
+			tm = new DefaultTableModel();
+			
+			tm.addColumn("Ticket Number");
+			tm.addColumn("Email ID");
+			tm.addColumn("Issue");
+			tm.addColumn("Status");
+			
+			for (Tickets_Group2 t: tl)	{
+				tm.addRow(t.getVector());
+			}
+			
+			table.setModel(tm);
+			
+			table.setRowSorter(new TableRowSorter(tm));
+
+			table.getSelectionModel().addListSelectionListener(lsl);
+			
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			table.getColumnModel().getColumn(0).setPreferredWidth(85);
+			table.getColumnModel().getColumn(1).setPreferredWidth(150);
+			table.getColumnModel().getColumn(2).setMinWidth(150);
+			
+			table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
 		}
 		
-		table.setModel(tm);
-		
-		table.setRowSorter(new TableRowSorter(tm));
-
-		table.getSelectionModel().addListSelectionListener(lsl);
-		
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.getColumnModel().getColumn(0).setPreferredWidth(85);
-		table.getColumnModel().getColumn(1).setPreferredWidth(150);
-		table.getColumnModel().getColumn(2).setMinWidth(150);
-		
-		table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
 	}
 	
 	public ArrayList<Tickets_Group2> getSearchedTicket() {
@@ -132,6 +148,11 @@ public class SearchTicketGUI {
 		frame.getContentPane().add(txtSearchNum);
 		txtSearchNum.setColumns(10);
 		
+		lblResult = new JLabel("");
+		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblResult.setBounds(211, 103, 314, 37);
+		frame.getContentPane().add(lblResult);
+		
 		/*
 		 * Searching the ticket by ticket number
 		 */
@@ -139,9 +160,16 @@ public class SearchTicketGUI {
 		JButton btnSearchByNum = new JButton("Search by Ticket Number");
 		btnSearchByNum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				searchNum = Integer.parseInt(txtSearchNum.getText());
-				i=1;
-				addTableData();
+				if(v.isNotEmpty(txtSearchNum.getText()) && v.validateTicketNum(txtSearchNum.getText())) {
+					searchNum = Integer.parseInt(txtSearchNum.getText());
+					i=1;
+					addTableData();
+				} else {
+					lblResult.setForeground(Color.red);
+					lblResult.setText("Please enter a valid Ticket Number");
+					tm = new DefaultTableModel();
+					table.setModel(tm);
+				}
 			}
 		});
 		btnSearchByNum.setBounds(356, 12, 177, 25);
@@ -160,16 +188,23 @@ public class SearchTicketGUI {
 		JButton btnSearchByEmail = new JButton("Search by Email");
 		btnSearchByEmail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				searchEmail = txtSearchEmail.getText();
-				i=2;
-				addTableData();
+				if(v.isNotEmpty(txtSearchEmail.getText()) && v.validateEmail(txtSearchEmail.getText())) {
+					searchEmail = txtSearchEmail.getText();
+					i=2;
+					addTableData();
+				} else {
+					lblResult.setForeground(Color.red);
+					lblResult.setText("Please enter a valid Email ID");
+					tm = new DefaultTableModel();
+					table.setModel(tm);
+				}
 			}
 		});
 		btnSearchByEmail.setBounds(356, 61, 177, 25);
 		frame.getContentPane().add(btnSearchByEmail);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(21, 117, 549, 295);
+		scrollPane.setBounds(133, 153, 462, 249);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();

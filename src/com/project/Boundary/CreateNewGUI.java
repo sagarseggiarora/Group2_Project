@@ -1,12 +1,15 @@
 package com.project.Boundary;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.project.Controller.Validations;
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
@@ -14,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class CreateNewGUI {
 
@@ -24,6 +28,7 @@ public class CreateNewGUI {
 	private JTextField txtEmail;
 	private JTextField txtAddress;
 	private JTextField txtPhone;
+	private static Validations v = new Validations();
 	
 	UserTicketDAO dao;
 
@@ -122,9 +127,14 @@ public class CreateNewGUI {
 		txtrIssue.setBounds(159, 307, 146, 99);
 		frame.getContentPane().add(txtrIssue);
 		
-		JLabel lbl1 = new JLabel("New label");
-		lbl1.setBounds(465, 192, 46, 14);
-		frame.getContentPane().add(lbl1);
+		JLabel lblResult = new JLabel("");
+		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblResult.setBounds(391, 228, 348, 52);
+		frame.getContentPane().add(lblResult);
+		
+		JLabel lblIssue = new JLabel("Issue");
+		lblIssue.setBounds(15, 307, 69, 20);
+		frame.getContentPane().add(lblIssue);
 		
 		/*
 		 * Creating a new ticket and a new user in database
@@ -132,47 +142,48 @@ public class CreateNewGUI {
 		JButton btnCreateTicket = new JButton("Create Ticket");
 		btnCreateTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dao=new UserTicketDAO();
-				Tickets_Group2 t1=new Tickets_Group2();
-				User_Group2 u1=new User_Group2();
-				//String email=txtEmail.getText();
-				u1.setFirst_name(txtFname.getText());
-				u1.setLast_name(txtLname.getText());
-				u1.setEmail(txtEmail.getText());
-				u1.setAddress(txtAddress.getText());
-				u1.setPhone_number(txtPhone.getText());
-				
-				
-				t1.setEmail(txtEmail.getText());
-				t1.setIssue(txtrIssue.getText());
-				
-				
-			    dao.newCustomer(u1);
-				dao.newTicket(t1);
-				Tickets_Group2 tf = new Tickets_Group2();
-				//dao1 = newUserTicketDAO();
-				tf.setEmail(txtEmail.getText().trim());
-				dao.gtTicketNumberNewCust(tf);
-				
-				//lbl1.setText(String.valueOf(tf.getTicket_number()));
-				JOptionPane.showMessageDialog(null,"Your Generated Ticket Number is: "+ String.valueOf(tf.getTicket_number()));
-				
-				//String ticket_NO=dao.getTicketID(email);
-				//txtTicket.setText(ticket_NO);
-				
+				if(v.isNotEmpty(txtFname.getText()) && v.isNotEmpty(txtLname.getText()) && v.isNotEmpty(txtEmail.getText()) && v.isNotEmpty(txtPhone.getText()) && v.isNotEmpty(txtAddress.getText()) && v.isNotEmpty(txtrIssue.getText())) {
+					if(v.validateEmail(txtEmail.getText())) {
+						if(v.validatePhone(txtPhone.getText())) {
+							dao=new UserTicketDAO();
+							Tickets_Group2 t1=new Tickets_Group2();
+							User_Group2 u1=new User_Group2();
+							//String email=txtEmail.getText();
+							u1.setFirst_name(txtFname.getText());
+							u1.setLast_name(txtLname.getText());
+							u1.setEmail(txtEmail.getText());
+							u1.setAddress(txtAddress.getText());
+							u1.setPhone_number(txtPhone.getText());
+							
+							
+							t1.setEmail(txtEmail.getText());
+							t1.setIssue(txtrIssue.getText());
+							
+							
+						    dao.newCustomer(u1);
+							dao.newTicket(t1);
+							Tickets_Group2 tf = new Tickets_Group2();
+							tf.setEmail(txtEmail.getText().trim());
+							dao.gtTicketNumberNewCust(tf);
+							
+							lblResult.setForeground(Color.GREEN);
+							lblResult.setText("Ticket ID Generated: " + String.valueOf(tf.getTicket_number()));
+						} else {
+							lblResult.setForeground(Color.red);
+							lblResult.setText("Please enter a valid Phone Number");
+						}
+					} else {
+						lblResult.setForeground(Color.red);
+						lblResult.setText("Please enter a valid Email ID");
+					}
+				} else {
+					lblResult.setForeground(Color.red);
+					lblResult.setText("Input fields cannot be empty.");
+				}
 			}
 		});
 		btnCreateTicket.setBounds(391, 81, 146, 29);
 		frame.getContentPane().add(btnCreateTicket);
-		
-		JLabel lblIssue = new JLabel("Issue");
-		lblIssue.setBounds(15, 307, 69, 20);
-		frame.getContentPane().add(lblIssue);
-		
-		
-		
-		
-		
 		
 	}
 }

@@ -83,25 +83,28 @@ public class ViewSelectedTicketGUI {
 		txtTicketNum.setColumns(10);
 		
 		txtEmail = new JTextField();
+		txtEmail.setEditable(false);
 		txtEmail.setBounds(127, 66, 149, 22);
 		frame.getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		
 		txtName = new JTextField();
+		txtName.setEditable(false);
 		txtName.setColumns(10);
 		txtName.setBounds(127, 113, 149, 22);
 		frame.getContentPane().add(txtName);
 		
 		txtIssue = new JTextField();
+		txtIssue.setEditable(false);
 		txtIssue.setColumns(10);
-		txtIssue.setBounds(127, 164, 149, 22);
+		txtIssue.setBounds(127, 164, 341, 22);
+		
 		frame.getContentPane().add(txtIssue);
 		
 		JComboBox cbStatus = new JComboBox();
 		cbStatus.setBounds(127, 223, 149, 22);
 		frame.getContentPane().add(cbStatus);
 		
-		cbStatus.addItem("Select");
 		cbStatus.addItem("Open");
 		cbStatus.addItem("Close");
 		

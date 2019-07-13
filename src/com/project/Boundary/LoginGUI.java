@@ -1,23 +1,27 @@
 package com.project.Boundary;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.project.Controller.Validations;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+import java.awt.Font;
 
 public class LoginGUI {
 
 	private JFrame frame;
 	private JTextField txtUsername;
-	private JTextField txtPassword;
-	
+	private static Validations v = new Validations();
 	UserTicketDAO dao;
+	private JPasswordField txtPassword;
 
 	/**
 	 * Launch the application.
@@ -69,13 +73,13 @@ public class LoginGUI {
 		frame.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		txtPassword.setBounds(283, 151, 146, 26);
 		frame.getContentPane().add(txtPassword);
-		txtPassword.setColumns(10);
 		
 		JLabel lblResult = new JLabel("");
-		lblResult.setBounds(238, 274, 69, 20);
+		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblResult.setBounds(396, 190, 291, 59);
 		frame.getContentPane().add(lblResult);
 		
 		/*
@@ -85,23 +89,26 @@ public class LoginGUI {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				dao = new UserTicketDAO();
-				String user = txtUsername.getText();
-				String pass = txtPassword.getText();
-				boolean isValid= dao.validate(user, pass);
-				if(isValid) {
-					
-					lblResult.setText("login success");
-					DashboardGUI dg = new DashboardGUI();
-					dg.Dashboard();
+				if(v.isNotEmpty(txtUsername.getText()) && v.isNotEmpty(txtPassword.getText())) {
+					dao = new UserTicketDAO();
+					String user = txtUsername.getText();
+					String pass = txtPassword.getText();
+					boolean isValid= dao.validate(user, pass);
+					if(isValid) {
+						lblResult.setForeground(Color.green);
+						lblResult.setText("Login Successful");
+						DashboardGUI dg = new DashboardGUI();
+						dg.Dashboard();
+					}
+					else
+					{
+						lblResult.setForeground(Color.red);
+						lblResult.setText("Invalid credentials, Try again!");
+					}
+				} else {
+					lblResult.setForeground(Color.red);
+					lblResult.setText("Input fields cannot be empty.");
 				}
-				else
-				{
-					lblResult.setText("Try again");
-				}
-				
-			
 			}
 		});
 		btnLogin.setBounds(211, 209, 115, 29);
