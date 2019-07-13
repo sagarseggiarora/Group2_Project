@@ -69,7 +69,7 @@ public class UserTicketDAO {
 		 */
 		public boolean validate(String username, String Password)
 		{
-			String sql ="select username,password from login where username = '"+username+"' and password= '"+Password+"'";
+			String sql ="select username,password from login where username = '"+username+"' and password = SHA2('"+Password+"', 512)";
 			boolean check = false;
 			
 			try {
