@@ -20,7 +20,7 @@ public class LoginGUI {
 	private JFrame frame;
 	private JTextField txtUsername;
 	private static Validations v = new Validations();
-	UserTicketDAO dao;
+	UserTicketDAO dao = new UserTicketDAO();
 	private JPasswordField txtPassword;
 
 	/**
@@ -89,10 +89,10 @@ public class LoginGUI {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(v.isNotEmpty(txtUsername.getText()) && v.isNotEmpty(txtPassword.getText())) {
+				if(v.isNotEmpty(txtUsername.getText()) && txtPassword.getPassword().length != 0) {
 					dao = new UserTicketDAO();
 					String user = txtUsername.getText();
-					String pass = txtPassword.getText();
+					String pass = new String(txtPassword.getPassword());
 					boolean isValid= dao.validate(user, pass);
 					if(isValid) {
 						lblResult.setForeground(Color.green);
