@@ -16,6 +16,7 @@ import com.project.Entity.User_Group2;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -30,7 +31,7 @@ public class CreateNewGUI {
 	private JTextField txtPhone;
 	private static Validations v = new Validations();
 	
-	UserTicketDAO dao;
+	UserTicketDAO dao = new UserTicketDAO();;
 
 	/**
 	 * Launch the application.
@@ -145,29 +146,30 @@ public class CreateNewGUI {
 				if(v.isNotEmpty(txtFname.getText()) && v.isNotEmpty(txtLname.getText()) && v.isNotEmpty(txtEmail.getText()) && v.isNotEmpty(txtPhone.getText()) && v.isNotEmpty(txtAddress.getText()) && v.isNotEmpty(txtrIssue.getText())) {
 					if(v.validateEmail(txtEmail.getText())) {
 						if(v.validatePhone(txtPhone.getText())) {
-							dao=new UserTicketDAO();
-							Tickets_Group2 t1=new Tickets_Group2();
-							User_Group2 u1=new User_Group2();
-							//String email=txtEmail.getText();
-							u1.setFirst_name(txtFname.getText());
-							u1.setLast_name(txtLname.getText());
-							u1.setEmail(txtEmail.getText());
-							u1.setAddress(txtAddress.getText());
-							u1.setPhone_number(txtPhone.getText());
-							
-							
-							t1.setEmail(txtEmail.getText());
-							t1.setIssue(txtrIssue.getText());
-							
-							
-						    dao.newCustomer(u1);
-							dao.newTicket(t1);
-							Tickets_Group2 tf = new Tickets_Group2();
-							tf.setEmail(txtEmail.getText().trim());
-							dao.gtTicketNumberNewCust(tf);
-							
-							lblResult.setForeground(Color.GREEN);
-							lblResult.setText("Ticket ID Generated: " + String.valueOf(tf.getTicket_number()));
+							if(dao.getTicketbyEmail(txtEmail.getText()).isEmpty()) {
+								Tickets_Group2 t1=new Tickets_Group2();
+								User_Group2 u1=new User_Group2();
+								u1.setFirst_name(txtFname.getText());
+								u1.setLast_name(txtLname.getText());
+								u1.setEmail(txtEmail.getText());
+								u1.setAddress(txtAddress.getText());
+								u1.setPhone_number(txtPhone.getText());
+
+								t1.setEmail(txtEmail.getText());
+								t1.setIssue(txtrIssue.getText());								
+								
+							    dao.newCustomer(u1);
+								dao.newTicket(t1);
+								Tickets_Group2 tf = new Tickets_Group2();
+								tf.setEmail(txtEmail.getText().trim());
+								dao.gtTicketNumberNewCust(tf);
+								
+								lblResult.setForeground(Color.GREEN);
+								lblResult.setText("Ticket ID Generated: " + String.valueOf(tf.getTicket_number()));
+							} else {
+								lblResult.setForeground(Color.red);
+								lblResult.setText("Email ID already exists!");
+							}
 						} else {
 							lblResult.setForeground(Color.red);
 							lblResult.setText("Please enter a valid Phone Number");
