@@ -17,7 +17,7 @@ import java.awt.Font;
 
 public class LoginGUI {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField txtUsername;
 	private static Validations v = new Validations();
 	UserTicketDAO dao = new UserTicketDAO();

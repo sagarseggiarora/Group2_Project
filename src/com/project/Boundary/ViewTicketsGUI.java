@@ -21,6 +21,7 @@ import com.project.Entity.User_Group2;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 public class ViewTicketsGUI {
 
@@ -138,6 +139,26 @@ public class ViewTicketsGUI {
 		comboStatus.addItem("Select");
 		comboStatus.addItem("Open");
 		comboStatus.addItem("Close");
+		
+		JButton button = new JButton("<<GoBack");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DashboardGUI dg = new DashboardGUI();
+				dg.Dashboard();
+			}
+		});
+		button.setBounds(33, 372, 102, 23);
+		frame.getContentPane().add(button);
+		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginGUI lg = new LoginGUI();
+				lg.main(null);
+			}
+		});
+		btnLogout.setBounds(456, 372, 102, 23);
+		frame.getContentPane().add(btnLogout);
 		
 		/*
 		 * Add open/close filter for the table to view tickets with open/close status  

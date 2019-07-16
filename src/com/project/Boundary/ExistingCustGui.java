@@ -214,5 +214,25 @@ public class ExistingCustGui {
 		btnUpdate.setBounds(302, 65, 89, 23);
 		frame.getContentPane().add(btnUpdate);
 		
+		JButton button = new JButton("LOGOUT");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginGUI lg = new LoginGUI();
+				lg.main(null);
+			}
+		});
+		button.setBounds(367, 355, 121, 23);
+		frame.getContentPane().add(button);
+		
+		JButton button_1 = new JButton("<<Go Back");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DashboardGUI dg = new DashboardGUI();
+				dg.Dashboard();
+			}
+		});
+		button_1.setBounds(30, 355, 121, 23);
+		frame.getContentPane().add(button_1);
+		
 	}
 }

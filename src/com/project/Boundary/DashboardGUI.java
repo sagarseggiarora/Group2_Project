@@ -3,11 +3,13 @@ package com.project.Boundary;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class DashboardGUI {
+	
 
 	private JFrame frame;
 
@@ -87,6 +89,15 @@ public class DashboardGUI {
 		});
 		btnSearch.setBounds(230, 252, 321, 59);
 		frame.getContentPane().add(btnSearch);
+		
+		JButton btnLogout = new JButton("LOGOUT");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LoginGUI lg1 = new LoginGUI();
+				lg1.main(null);
+			}
+		});
+		btnLogout.setBounds(24, 327, 121, 23);
+		frame.getContentPane().add(btnLogout);
 	}
-	
 }
