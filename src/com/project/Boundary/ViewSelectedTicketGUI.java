@@ -3,31 +3,42 @@ package com.project.Boundary;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import com.project.Entity.Logs_Group2;
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 
 public class ViewSelectedTicketGUI {
 
 	private JFrame frame;
+	private static String userName = "";
 	private static int id = 0;
 	private UserTicketDAO uto = new UserTicketDAO();
+	Logs_Group2 log;
 	private JTextField txtTicketNum;
 	private JTextField txtEmail;
 	private JTextField txtName;
 	private JTextField txtIssue;
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Date date = new Date();
 
 	/**
 	 * Launch the application.
 	 * @param currId 
 	 */
-	public static void ViewSelected(int currId) {
+	public static void ViewSelected(int currId,String user) {
 		id = currId;
+		userName=user;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -52,7 +63,7 @@ public class ViewSelectedTicketGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 521, 423);
+		frame.setBounds(100, 100, 730, 475);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -152,8 +163,46 @@ public class ViewSelectedTicketGUI {
 				
 			}
 		});
-		btnUpdateStatus.setBounds(135, 296, 205, 29);
+		btnUpdateStatus.setBounds(298, 220, 165, 29);
 		frame.getContentPane().add(btnUpdateStatus);
+		
+		JLabel lblComment = new JLabel("Comment");
+		lblComment.setBounds(33, 274, 69, 20);
+		frame.getContentPane().add(lblComment);
+		
+		JTextArea txtrLog = new JTextArea();
+		txtrLog.setBounds(127, 274, 341, 69);
+		frame.getContentPane().add(txtrLog);
+		
+		JButton btnAddComment = new JButton("Add Comment");
+		btnAddComment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				log=new Logs_Group2();
+				
+				log.setTicket_no(txtTicketNum.getText());
+				log.setComment(txtrLog.getText());
+				log.setDate(dateFormat.format(date));
+				log.setSubmitted_by(userName);
+				
+				uto.newLog(log);
+				
+				
+			}
+		});
+		btnAddComment.setBounds(483, 274, 135, 69);
+		frame.getContentPane().add(btnAddComment);
+		
+		JButton btnViewLog = new JButton("View Log");
+		btnViewLog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ViewLogGUI vl=new ViewLogGUI();
+				String ticket=txtTicketNum.getText();
+				vl.ViewLog(ticket);
+			}
+		});
+		btnViewLog.setBounds(248, 359, 115, 29);
+		frame.getContentPane().add(btnViewLog);
 				
 	}
 }

@@ -17,7 +17,7 @@ import java.awt.Font;
 
 public class LoginGUI {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField txtUsername;
 	private static Validations v = new Validations();
 	UserTicketDAO dao = new UserTicketDAO();
@@ -98,7 +98,8 @@ public class LoginGUI {
 						lblResult.setForeground(Color.green);
 						lblResult.setText("Login Successful");
 						DashboardGUI dg = new DashboardGUI();
-						dg.Dashboard();
+						dg.Dashboard(user);
+						
 					}
 					else
 					{

@@ -3,18 +3,23 @@ package com.project.Boundary;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class DashboardGUI {
+	
 
 	private JFrame frame;
+	private static String userName = "";
 
 	/**
 	 * Launch the application.
 	 */
-	public static void Dashboard() {
+	public static void Dashboard(String user) {
+		
+		userName=user;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -72,7 +77,7 @@ public class DashboardGUI {
 		btnViewAllTickets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewTicketsGUI vg = new ViewTicketsGUI();
-				vg.ViewTickets();
+				vg.ViewTickets(userName);
 			}
 		});
 		btnViewAllTickets.setBounds(230, 157, 321, 59);
@@ -82,11 +87,20 @@ public class DashboardGUI {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SearchTicketGUI sg = new SearchTicketGUI();
-				sg.SearchTicket();
+				sg.SearchTicket(userName);
 			}
 		});
 		btnSearch.setBounds(230, 252, 321, 59);
 		frame.getContentPane().add(btnSearch);
+		
+		JButton btnLogout = new JButton("LOGOUT");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LoginGUI lg1 = new LoginGUI();
+				lg1.main(null);
+			}
+		});
+		btnLogout.setBounds(24, 327, 121, 23);
+		frame.getContentPane().add(btnLogout);
 	}
-	
 }

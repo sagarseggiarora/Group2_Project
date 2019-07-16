@@ -30,6 +30,7 @@ public class CreateNewGUI {
 	private JTextField txtAddress;
 	private JTextField txtPhone;
 	private static Validations v = new Validations();
+	private static String userName = "";
 	
 	UserTicketDAO dao = new UserTicketDAO();;
 
@@ -186,6 +187,26 @@ public class CreateNewGUI {
 		});
 		btnCreateTicket.setBounds(391, 81, 146, 29);
 		frame.getContentPane().add(btnCreateTicket);
+		
+		JButton button = new JButton("<<GoBack");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DashboardGUI dg = new DashboardGUI();
+				dg.Dashboard(userName);
+			}
+		});
+		button.setBounds(15, 465, 106, 23);
+		frame.getContentPane().add(button);
+		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginGUI lg = new LoginGUI();
+				lg.main(null);
+			}
+		});
+		btnLogout.setBounds(431, 465, 106, 23);
+		frame.getContentPane().add(btnLogout);
 		
 	}
 }
