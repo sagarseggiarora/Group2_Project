@@ -30,6 +30,7 @@ public class CreateNewGUI {
 	private JTextField txtAddress;
 	private JTextField txtPhone;
 	private static Validations v = new Validations();
+	private static String userName = "";
 	
 	UserTicketDAO dao = new UserTicketDAO();;
 
@@ -191,7 +192,7 @@ public class CreateNewGUI {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DashboardGUI dg = new DashboardGUI();
-				dg.Dashboard();
+				dg.Dashboard(userName);
 			}
 		});
 		button.setBounds(15, 465, 106, 23);

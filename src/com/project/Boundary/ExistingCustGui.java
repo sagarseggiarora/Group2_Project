@@ -28,6 +28,7 @@ public class ExistingCustGui {
 	private JTextField txtIssue;
 	UserTicketDAO dao1;
 	private static Validations v = new Validations();
+	private static String userName = "";
 
 	/**
 	 * Launch the application.
@@ -228,7 +229,7 @@ public class ExistingCustGui {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DashboardGUI dg = new DashboardGUI();
-				dg.Dashboard();
+				dg.Dashboard(userName);
 			}
 		});
 		button_1.setBounds(30, 355, 121, 23);

@@ -217,7 +217,7 @@ public class SearchTicketGUI {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DashboardGUI dg = new DashboardGUI();
-				dg.Dashboard();
+				dg.Dashboard(userName);
 			}
 		});
 		button.setBounds(10, 410, 109, 23);

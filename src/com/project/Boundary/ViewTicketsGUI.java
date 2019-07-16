@@ -146,7 +146,7 @@ public class ViewTicketsGUI {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DashboardGUI dg = new DashboardGUI();
-				dg.Dashboard();
+				dg.Dashboard(userName);
 			}
 		});
 		button.setBounds(33, 372, 102, 23);
