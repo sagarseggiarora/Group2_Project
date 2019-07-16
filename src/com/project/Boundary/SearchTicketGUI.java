@@ -20,12 +20,15 @@ import javax.swing.JButton;
 import java.awt.ScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.Point;
 
 public class SearchTicketGUI {
 
@@ -132,17 +135,27 @@ public class SearchTicketGUI {
 		frame.setBounds(100, 100, 837, 483);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		lsl = new ListSelectionListener() {
 		
-		public void valueChanged(ListSelectionEvent arg0) {
-			// TODO Auto-generated method stub
-			//Get the column value of the first column of the selected row
-			int currId = (int) table.getValueAt(table.getSelectedRow(),0);
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(133, 153, 462, 249);
+		frame.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(table);
 
-			ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
-			vsg.ViewSelected(currId,userName);
-		}
-		};
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		        	int currId = (int) table.getValueAt(table.getSelectedRow(),0); 
+		   		    ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
+		   		    vsg.ViewSelected(currId,userName);
+		        }
+		    }
+		});
 		
 		txtSearchNum = new JTextField();
 		txtSearchNum.setToolTipText("Enter the ticket number");
@@ -204,14 +217,6 @@ public class SearchTicketGUI {
 		});
 		btnSearchByEmail.setBounds(356, 61, 177, 25);
 		frame.getContentPane().add(btnSearchByEmail);
-		
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(133, 153, 462, 249);
-		frame.getContentPane().add(scrollPane);
-		
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(table);
 		
 		JButton button = new JButton("<<GoBack");
 		button.addActionListener(new ActionListener() {

@@ -1,8 +1,11 @@
 package com.project.Boundary;
 
 import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -104,19 +107,6 @@ public class ViewTicketsGUI {
 		frame.setBounds(100, 100, 600, 433);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		lsl = new ListSelectionListener() {
-			
-			public void valueChanged(ListSelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				//Get the column value of the first column of the selected row
-				int currId = (int) table.getValueAt(table.getSelectedRow(),0);
-
-				ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
-				vsg.ViewSelected(currId,userName);
-			}
-			};
-			
-		
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(53, 73, 465, 288);
@@ -125,6 +115,19 @@ public class ViewTicketsGUI {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
+		
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		        	int currId = (int) table.getValueAt(table.getSelectedRow(),0); 
+		   		    ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
+		   		    vsg.ViewSelected(currId,userName);
+		        }
+		    }
+		});
 		
 		JLabel lblFilterBy = new JLabel("Filter by");
 		lblFilterBy.setBounds(53, 16, 69, 20);
