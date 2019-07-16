@@ -61,7 +61,7 @@ class testCasesFinal {
 	void checkifUsernamePasswordExists()
 	{
 		UserTicketDAO ug = new UserTicketDAO();
-		assertFalse(ug.validate("sagar","sagar123"));
+		assertTrue(ug.validate("sagar","sagar123"));
 		
 	}
 	

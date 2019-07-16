@@ -112,6 +112,8 @@ public class ViewTicketsGUI {
 				vsg.ViewSelected(currId);
 			}
 			};
+			
+		
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(53, 73, 465, 288);
