@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.project.Entity.Logs_Group2;
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
@@ -121,6 +122,28 @@ public class UserTicketDAO {
 				System.out.println(sx.getSQLState());
 			}
 			return ticketNumber;
+			
+		}
+		
+		public int newLog(Logs_Group2 nl) {
+			
+			int logId=0;
+			String sql="INSERT INTO logs (ticket_no, Comment, date, submit_by)" + " VALUES ('" + nl.getTicket_no()+"','"+nl.getComment()+"','"+nl.getDate()+"','"+nl.getSubmitted_by()+"');";
+			
+			try {
+				ConnectDB();
+				stmt = conn.createStatement();
+				logId = stmt.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
+				DisconnectDB();
+			}
+			catch(SQLException sx)
+			{
+				System.out.println("Error connection to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+			}
+			return logId;
 			
 		}
 		
@@ -300,6 +323,45 @@ public class UserTicketDAO {
 			
 			
 			return tl;
+		}
+		
+		public ArrayList<Logs_Group2> getLogs(String ticket){
+			
+			ArrayList<Logs_Group2> logList = new ArrayList<Logs_Group2>();
+			
+			String sql = "SELECT * FROM logs where ticket_no = ' "+ticket+"';";
+			
+			try {
+				ConnectDB();
+				
+				stmt = conn.createStatement();
+				
+				rs = stmt.executeQuery(sql);
+				
+			while (rs.next())	{
+				Logs_Group2 nl = new Logs_Group2();
+				
+				nl.setLog_id(rs.getInt("log_id"));
+				nl.setComment(rs.getString("Comment"));
+				nl.setDate(rs.getString("date"));
+				nl.setSubmitted_by(rs.getString("submit_by"));
+				
+				logList.add(nl);
+			
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return logList;
+			
 		}
 		
 		/**

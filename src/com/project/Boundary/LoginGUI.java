@@ -98,7 +98,8 @@ public class LoginGUI {
 						lblResult.setForeground(Color.green);
 						lblResult.setText("Login Successful");
 						DashboardGUI dg = new DashboardGUI();
-						dg.Dashboard();
+						dg.Dashboard(user);
+						
 					}
 					else
 					{

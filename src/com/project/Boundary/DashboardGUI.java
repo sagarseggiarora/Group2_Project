@@ -10,11 +10,14 @@ import java.awt.event.ActionEvent;
 public class DashboardGUI {
 
 	private JFrame frame;
+	private static String userName = "";
 
 	/**
 	 * Launch the application.
 	 */
-	public static void Dashboard() {
+	public static void Dashboard(String user) {
+		
+		userName=user;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -72,7 +75,7 @@ public class DashboardGUI {
 		btnViewAllTickets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewTicketsGUI vg = new ViewTicketsGUI();
-				vg.ViewTickets();
+				vg.ViewTickets(userName);
 			}
 		});
 		btnViewAllTickets.setBounds(230, 157, 321, 59);
@@ -82,7 +85,7 @@ public class DashboardGUI {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SearchTicketGUI sg = new SearchTicketGUI();
-				sg.SearchTicket();
+				sg.SearchTicket(userName);
 			}
 		});
 		btnSearch.setBounds(230, 252, 321, 59);

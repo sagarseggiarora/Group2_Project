@@ -35,6 +35,7 @@ public class SearchTicketGUI {
 	private JTextField txtSearchNum;
 	private JTextField txtSearchEmail;
 	private JTable table;
+	private static String userName = "";
 	
 	int i = 0;
 	private UserTicketDAO uto = new UserTicketDAO();
@@ -46,7 +47,8 @@ public class SearchTicketGUI {
 	/**
 	 * Launch the application.
 	 */
-	public static void SearchTicket() {
+	public static void SearchTicket(String user) {
+		userName=user;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -138,7 +140,7 @@ public class SearchTicketGUI {
 			int currId = (int) table.getValueAt(table.getSelectedRow(),0);
 
 			ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
-			vsg.ViewSelected(currId);
+			vsg.ViewSelected(currId,userName);
 		}
 		};
 		
