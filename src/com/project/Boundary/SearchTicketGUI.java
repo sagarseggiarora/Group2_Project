@@ -213,5 +213,25 @@ public class SearchTicketGUI {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		
+		JButton button = new JButton("<<GoBack");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DashboardGUI dg = new DashboardGUI();
+				dg.Dashboard();
+			}
+		});
+		button.setBounds(10, 410, 109, 23);
+		frame.getContentPane().add(button);
+		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginGUI lg = new LoginGUI();
+				lg.main(null);
+			}
+		});
+		btnLogout.setBounds(595, 410, 115, 23);
+		frame.getContentPane().add(btnLogout);
+		
 	}
 }
