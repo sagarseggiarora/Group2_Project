@@ -191,6 +191,7 @@ public class CreateNewGUI {
 		JButton button = new JButton("<<GoBack");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				DashboardGUI dg = new DashboardGUI();
 				dg.Dashboard(userName);
 			}
@@ -201,6 +202,7 @@ public class CreateNewGUI {
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				LoginGUI lg = new LoginGUI();
 				lg.main(null);
 			}

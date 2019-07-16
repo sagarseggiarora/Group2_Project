@@ -56,6 +56,7 @@ public class DashboardGUI {
 		JButton btnCreateTicketExisting = new JButton("Create Ticket for \r\nExisting Customer");
 		btnCreateTicketExisting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
 				ExistingCustGui eg = new ExistingCustGui();
 				eg.Existing();
 			}
@@ -66,6 +67,7 @@ public class DashboardGUI {
 		JButton btnCreateTicketNew = new JButton("Create Ticket for \r\nNew Customer");
 		btnCreateTicketNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				CreateNewGUI cg = new CreateNewGUI();
 				cg.CreateNew();
 			}
@@ -76,6 +78,7 @@ public class DashboardGUI {
 		JButton btnViewAllTickets = new JButton("View All Tickets");
 		btnViewAllTickets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				ViewTicketsGUI vg = new ViewTicketsGUI();
 				vg.ViewTickets(userName);
 			}
@@ -86,6 +89,7 @@ public class DashboardGUI {
 		JButton btnSearch = new JButton("Search Ticket");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				SearchTicketGUI sg = new SearchTicketGUI();
 				sg.SearchTicket(userName);
 			}
@@ -96,6 +100,7 @@ public class DashboardGUI {
 		JButton btnLogout = new JButton("LOGOUT");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
 				LoginGUI lg1 = new LoginGUI();
 				lg1.main(null);
 			}

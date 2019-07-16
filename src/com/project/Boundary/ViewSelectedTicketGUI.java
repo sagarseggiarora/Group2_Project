@@ -64,7 +64,7 @@ public class ViewSelectedTicketGUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 730, 475);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblTicket = new JLabel("Ticket #");
@@ -160,7 +160,6 @@ public class ViewSelectedTicketGUI {
 		btnUpdateStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				uto.updateTickets(ut);
-				
 			}
 		});
 		btnUpdateStatus.setBounds(298, 220, 165, 29);

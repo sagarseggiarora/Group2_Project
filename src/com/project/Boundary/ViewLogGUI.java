@@ -54,7 +54,12 @@ public class ViewLogGUI {
 		
 		table.getSelectionModel().removeListSelectionListener(lsl);
 		
-		tm = new DefaultTableModel();
+		tm = new DefaultTableModel() {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		};
 		
 		tm.addColumn("Log ID");
 		tm.addColumn("Comments");
@@ -96,7 +101,7 @@ public class ViewLogGUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 687, 418);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblTicket = new JLabel("Ticket#");

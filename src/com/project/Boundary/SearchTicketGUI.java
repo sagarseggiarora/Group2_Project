@@ -29,6 +29,8 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.Point;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class SearchTicketGUI {
 
@@ -84,7 +86,12 @@ public class SearchTicketGUI {
 			
 			table.getSelectionModel().removeListSelectionListener(lsl);
 			
-			tm = new DefaultTableModel();
+			tm = new DefaultTableModel() {
+				@Override
+			    public boolean isCellEditable(int row, int column) {
+			       return false;
+			    }
+			};
 			
 			tm.addColumn("Ticket Number");
 			tm.addColumn("Email ID");
@@ -137,7 +144,7 @@ public class SearchTicketGUI {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(133, 153, 462, 249);
+		scrollPane.setBounds(133, 142, 462, 249);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -165,7 +172,7 @@ public class SearchTicketGUI {
 		
 		lblResult = new JLabel("");
 		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblResult.setBounds(211, 103, 314, 37);
+		lblResult.setBounds(219, 97, 314, 37);
 		frame.getContentPane().add(lblResult);
 		
 		/*
@@ -221,22 +228,36 @@ public class SearchTicketGUI {
 		JButton button = new JButton("<<GoBack");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				DashboardGUI dg = new DashboardGUI();
 				dg.Dashboard(userName);
 			}
 		});
-		button.setBounds(10, 410, 109, 23);
+		button.setBounds(133, 400, 109, 23);
 		frame.getContentPane().add(button);
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				LoginGUI lg = new LoginGUI();
 				lg.main(null);
 			}
 		});
-		btnLogout.setBounds(595, 410, 115, 23);
+		btnLogout.setBounds(480, 400, 115, 23);
 		frame.getContentPane().add(btnLogout);
+		
+		JButton btnRefresh = new JButton(new ImageIcon(getClass().getClassLoader().getResource("Images/refresh.png")));
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addTableData();
+			}
+		});
+		btnRefresh.setToolTipText("Refresh table");
+		btnRefresh.setForeground(Color.BLACK);
+		btnRefresh.setBorderPainted(false);
+		btnRefresh.setBounds(562, 97, 32, 32);
+		frame.getContentPane().add(btnRefresh);
 		
 	}
 }

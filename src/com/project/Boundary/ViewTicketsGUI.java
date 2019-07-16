@@ -24,7 +24,9 @@ import com.project.Entity.User_Group2;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class ViewTicketsGUI {
 
@@ -64,7 +66,12 @@ public class ViewTicketsGUI {
 		
 		table.getSelectionModel().removeListSelectionListener(lsl);
 		
-		tm = new DefaultTableModel();
+		tm = new DefaultTableModel() {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		};
 		
 		tm.addColumn("Ticket Number");
 		tm.addColumn("Email ID");
@@ -109,7 +116,7 @@ public class ViewTicketsGUI {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(53, 73, 465, 288);
+		scrollPane.setBounds(53, 52, 465, 288);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -141,31 +148,47 @@ public class ViewTicketsGUI {
 		addTableData();
 		
 		JComboBox comboStatus = new JComboBox();
-		comboStatus.setBounds(137, 13, 69, 26);
+		comboStatus.setBounds(137, 13, 121, 26);
 		frame.getContentPane().add(comboStatus);
-		comboStatus.addItem("Select");
-		comboStatus.addItem("Open");
-		comboStatus.addItem("Close");
+		comboStatus.addItem("All tickets");
+		comboStatus.addItem("Open Tickets");
+		comboStatus.addItem("Closed Tickets");
 		
 		JButton button = new JButton("<<GoBack");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				DashboardGUI dg = new DashboardGUI();
 				dg.Dashboard(userName);
 			}
 		});
-		button.setBounds(33, 372, 102, 23);
+		button.setBounds(34, 353, 102, 23);
 		frame.getContentPane().add(button);
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				LoginGUI lg = new LoginGUI();
 				lg.main(null);
 			}
 		});
-		btnLogout.setBounds(456, 372, 102, 23);
+		btnLogout.setBounds(456, 353, 102, 23);
 		frame.getContentPane().add(btnLogout);
+		
+		//JButton btnRefresh = new JButton("Refresh");
+		JButton btnRefresh = new JButton(new ImageIcon(getClass().getClassLoader().getResource("Images/refresh.png")));
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tl = uto.getTickets();
+				addTableData();
+			}
+		});
+		btnRefresh.setToolTipText("Refresh table");
+		btnRefresh.setForeground(Color.BLACK);
+		btnRefresh.setBounds(486, 7, 32, 32);
+		btnRefresh.setBorderPainted(false);
+		frame.getContentPane().add(btnRefresh);
 		
 		/*
 		 * Add open/close filter for the table to view tickets with open/close status  
@@ -174,14 +197,18 @@ public class ViewTicketsGUI {
 		comboStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				if(comboStatus.getSelectedItem()=="Open") {
+				if(comboStatus.getSelectedItem()=="Open Tickets") {
 					
 					tl = uto.getOpenTickets();
 					addTableData();
 				}
-				else if(comboStatus.getSelectedItem()=="Close") {
+				else if(comboStatus.getSelectedItem()=="Closed Tickets") {
 					
 					tl = uto.getCloseTickets();
+					addTableData();
+				} 
+				else {
+					tl = uto.getTickets();
 					addTableData();
 				}
 				
