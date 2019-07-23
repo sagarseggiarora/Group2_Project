@@ -58,7 +58,7 @@ public class DashboardGUI {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.setVisible(false);
 				ExistingCustGui eg = new ExistingCustGui();
-				eg.Existing();
+				eg.Existing(userName);
 			}
 		});
 		btnCreateTicketExisting.setBounds(31, 58, 313, 59);
@@ -69,7 +69,7 @@ public class DashboardGUI {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				CreateNewGUI cg = new CreateNewGUI();
-				cg.CreateNew();
+				cg.CreateNew(userName);
 			}
 		});
 		btnCreateTicketNew.setBounds(422, 58, 321, 59);
@@ -107,5 +107,16 @@ public class DashboardGUI {
 		});
 		btnLogout.setBounds(24, 327, 121, 23);
 		frame.getContentPane().add(btnLogout);
+		
+		JButton btnStats = new JButton("STATS");
+		btnStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				StatsGUI sg1 = new StatsGUI();
+				sg1.Stats(userName);
+			}
+		});
+		btnStats.setBounds(636, 326, 121, 23);
+		frame.getContentPane().add(btnStats);
 	}
 }

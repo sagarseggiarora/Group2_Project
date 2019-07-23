@@ -14,6 +14,7 @@ public class User_Group2 {
 	private String address = "";
 	private String phone_number = "";
 	private String issue="";
+	private String date = "";
 	
 	/*
 	 * Getters and Setters
@@ -59,8 +60,13 @@ public class User_Group2 {
 	}
 	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
+	}	
+	public String getDate() {
+		return date;
 	}
-	
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public Vector toVector() {
 		Vector v = new Vector();
 		

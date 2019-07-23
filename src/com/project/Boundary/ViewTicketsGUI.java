@@ -77,7 +77,8 @@ public class ViewTicketsGUI {
 		tm.addColumn("Email ID");
 		tm.addColumn("Issue");
 		tm.addColumn("Status");
-		
+		tm.addColumn("Date & Time");
+		tm.addColumn("Added By");
 		
 		
 		for (Tickets_Group2 t: tl)	{
@@ -94,6 +95,9 @@ public class ViewTicketsGUI {
 		table.getColumnModel().getColumn(0).setPreferredWidth(85);
 		table.getColumnModel().getColumn(1).setPreferredWidth(150);
 		table.getColumnModel().getColumn(2).setMinWidth(150);
+		table.getColumnModel().getColumn(3).setPreferredWidth(60);
+		table.getColumnModel().getColumn(4).setPreferredWidth(120);
+		table.getColumnModel().getColumn(5).setPreferredWidth(80);
 		
 		table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
 	}
@@ -111,12 +115,12 @@ public class ViewTicketsGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 433);
+		frame.setBounds(100, 100, 848, 499);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(53, 52, 465, 288);
+		scrollPane.setBounds(97, 102, 647, 288);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -137,7 +141,7 @@ public class ViewTicketsGUI {
 		});
 		
 		JLabel lblFilterBy = new JLabel("Filter by");
-		lblFilterBy.setBounds(53, 16, 69, 20);
+		lblFilterBy.setBounds(312, 42, 69, 20);
 		frame.getContentPane().add(lblFilterBy);
 		
 		/*
@@ -148,7 +152,7 @@ public class ViewTicketsGUI {
 		addTableData();
 		
 		JComboBox comboStatus = new JComboBox();
-		comboStatus.setBounds(137, 13, 121, 26);
+		comboStatus.setBounds(379, 39, 121, 26);
 		frame.getContentPane().add(comboStatus);
 		comboStatus.addItem("All tickets");
 		comboStatus.addItem("Open Tickets");
@@ -162,7 +166,7 @@ public class ViewTicketsGUI {
 				dg.Dashboard(userName);
 			}
 		});
-		button.setBounds(34, 353, 102, 23);
+		button.setBounds(97, 416, 102, 23);
 		frame.getContentPane().add(button);
 		
 		JButton btnLogout = new JButton("Logout");
@@ -173,7 +177,7 @@ public class ViewTicketsGUI {
 				lg.main(null);
 			}
 		});
-		btnLogout.setBounds(456, 353, 102, 23);
+		btnLogout.setBounds(642, 416, 102, 23);
 		frame.getContentPane().add(btnLogout);
 		
 		//JButton btnRefresh = new JButton("Refresh");
@@ -186,7 +190,7 @@ public class ViewTicketsGUI {
 		});
 		btnRefresh.setToolTipText("Refresh table");
 		btnRefresh.setForeground(Color.BLACK);
-		btnRefresh.setBounds(486, 7, 32, 32);
+		btnRefresh.setBounds(712, 39, 32, 32);
 		btnRefresh.setBorderPainted(false);
 		frame.getContentPane().add(btnRefresh);
 		

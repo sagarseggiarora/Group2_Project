@@ -11,6 +11,8 @@ public class Tickets_Group2 {
 	private String email = "";
 	private String issue = "";
 	private String status = "";
+	private String date = "";
+	private String added_by="";
 	
 	
 	/*
@@ -41,6 +43,18 @@ public class Tickets_Group2 {
 	public void setIssue(String issue) {
 		this.issue = issue;
 	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getAdded_by() {
+		return added_by;
+	}
+	public void setAdded_by(String added_by) {
+		this.added_by = added_by;
+	}
 	
 	public Vector getVector()	{
 		Vector v = new Vector();
@@ -48,7 +62,8 @@ public class Tickets_Group2 {
 		v.add(email);
 		v.add(issue);
 		v.add(status);
-		
+		v.add(date);
+		v.add(added_by);
 		return v;
 	}
 

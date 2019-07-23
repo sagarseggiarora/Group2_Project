@@ -97,6 +97,8 @@ public class SearchTicketGUI {
 			tm.addColumn("Email ID");
 			tm.addColumn("Issue");
 			tm.addColumn("Status");
+			tm.addColumn("Date & Time");
+			tm.addColumn("Added By");
 			
 			for (Tickets_Group2 t: tl)	{
 				tm.addRow(t.getVector());
@@ -112,6 +114,9 @@ public class SearchTicketGUI {
 			table.getColumnModel().getColumn(0).setPreferredWidth(85);
 			table.getColumnModel().getColumn(1).setPreferredWidth(150);
 			table.getColumnModel().getColumn(2).setMinWidth(150);
+			table.getColumnModel().getColumn(3).setPreferredWidth(60);
+			table.getColumnModel().getColumn(4).setPreferredWidth(120);
+			table.getColumnModel().getColumn(5).setPreferredWidth(80);
 			
 			table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
 		}
@@ -144,7 +149,7 @@ public class SearchTicketGUI {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(133, 142, 462, 249);
+		scrollPane.setBounds(72, 142, 647, 249);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -244,7 +249,7 @@ public class SearchTicketGUI {
 				lg.main(null);
 			}
 		});
-		btnLogout.setBounds(480, 400, 115, 23);
+		btnLogout.setBounds(562, 400, 115, 23);
 		frame.getContentPane().add(btnLogout);
 		
 		JButton btnRefresh = new JButton(new ImageIcon(getClass().getClassLoader().getResource("Images/refresh.png")));

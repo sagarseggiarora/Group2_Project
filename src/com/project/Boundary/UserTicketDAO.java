@@ -106,7 +106,7 @@ public class UserTicketDAO {
 		public int newTicket(Tickets_Group2 tick) {
 			
 			int ticketNumber=0;
-			String sql="INSERT INTO Tickets (email, issue, status)" + " VALUES ('" + tick.getEmail()+"','"+tick.getIssue()+"','Open');";
+			String sql="INSERT INTO Tickets (email, issue, status, date, added_by)" + " VALUES ('" + tick.getEmail()+"','"+tick.getIssue()+"','Open','"+tick.getDate()+"','"+tick.getAdded_by()+"');";
 			
 			try {
 				ConnectDB();
@@ -307,6 +307,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -388,6 +390,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -432,6 +436,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -477,6 +483,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -522,6 +530,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -572,26 +582,6 @@ public class UserTicketDAO {
 			
 		}
 		
-		/**
-		 * Add issue for existing user
-		 * @param t User object
-		 */
-		public void AddIssue(User_Group2 t)
-		{
-			String sql = "insert into tickets(Email,Issue, status) value(?,?,?)";
-			try {
-				ConnectDB();
-				pstmt = conn.prepareStatement(sql);
-				this.pstmt.setString(1,t.getEmail());
-				this.pstmt.setString(2,t.getIssue());
-				this.pstmt.setString(3, "Open");
-				this.pstmt.execute();
-				System.out.println("Added");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 
 		/** Update the ticket with passed values
 		 * @param ut Ticket object
