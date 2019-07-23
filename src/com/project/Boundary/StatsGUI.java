@@ -152,9 +152,12 @@ public class StatsGUI {
 					ug.setEmail(txtEmail.getText());
 					dao1.gtUser(ug);
 					if(v.isNotEmpty(ug.getFirst_name())) {
+						count = dao.getTicketbyEmail(txtEmail.getText()).size();
 						lblError.setText("");
+						lblResult.setText(String.valueOf(count));
 					}
 					else {
+						lblResult.setText("");
 						lblError.setText("Email ID not found in records");
 					}
 				}
@@ -171,7 +174,9 @@ public class StatsGUI {
 		btnCountDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(v.validateDate(txtDate.getText())) {
+					count = dao.getCountByDate(txtDate.getText());
 					lblError.setText("");
+					lblResult.setText(String.valueOf(count));
 				} 
 				else {
 					lblError.setText("Please enter the date in yyyy/mm/dd");
@@ -185,7 +190,8 @@ public class StatsGUI {
 		JButton btnCountAdmin = new JButton("Count");
 		btnCountAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				count = dao.getCountByAdmin(String.valueOf(cbAdmin.getSelectedItem()));
+				lblResult.setText(String.valueOf(count));
 			}
 		});
 		btnCountAdmin.setBounds(650, 128, 73, 25);
@@ -195,7 +201,8 @@ public class StatsGUI {
 		JButton btnCountTicket = new JButton("Count");
 		btnCountTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				count = dao.getTickets().size();
+				lblResult.setText(String.valueOf(count));
 			}
 		});
 		btnCountTicket.setBounds(327, 176, 73, 25);
@@ -205,7 +212,8 @@ public class StatsGUI {
 		JButton btnCountOTicket = new JButton("Count");
 		btnCountOTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				count = dao.getOpenTickets().size();
+				lblResult.setText(String.valueOf(count));
 			}
 		});
 		btnCountOTicket.setBounds(327, 222, 73, 25);
@@ -215,7 +223,8 @@ public class StatsGUI {
 		JButton btnCountCTicket = new JButton("Count");
 		btnCountCTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				count = dao.getCloseTickets().size();
+				lblResult.setText(String.valueOf(count));
 			}
 		});
 		btnCountCTicket.setBounds(327, 265, 73, 25);

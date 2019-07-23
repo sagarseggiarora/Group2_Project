@@ -673,5 +673,68 @@ public class UserTicketDAO {
 				e.printStackTrace();
 			}
 		}
+		
+		
+		public int getCountByAdmin(String admin)
+		{
+			int count = 0;
+			String sql = "Select count(*) as total from tickets where added_by = ?";
+			
+			try {
+				ConnectDB();
+				
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				pstmt.setString(1,admin);
+				
+				this.rs = pstmt.executeQuery();
+				
+			while (rs.next())	{
+				count = rs.getInt("total");
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return count;
+		}
+		
+		public int getCountByDate(String date)
+		{
+			int count = 0;
+			String sql = "Select count(*) as total from tickets where date like ?";
+			
+			try {
+				ConnectDB();
+				
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				pstmt.setString(1, date + "%");
+				
+				this.rs = pstmt.executeQuery();
+				
+			while (rs.next())	{
+				count = rs.getInt("total");
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return count;
+		}
 
 }
