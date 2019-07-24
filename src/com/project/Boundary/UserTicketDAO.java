@@ -736,5 +736,141 @@ public class UserTicketDAO {
 			
 			return count;
 		}
+		public Tickets_Group2 gtNewTickCount(Tickets_Group2 t5)
+		{
+			//String sql = "select count(created_by) from cxcreate where created_by=?";
+			String sql = "insert into cxcreate values(?)";
 
+			try {
+				ConnectDB();
+				
+				pstmt.setString(1,t5.getCreated_by());
+				this.pstmt = this.conn.prepareStatement(sql);
+				this.pstmt.execute();
+				
+				DisconnectDB();
+			
+		}
+			catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			return t5;
+
+		}
+         public Tickets_Group2 upcx(Tickets_Group2 tu) {
+			
+			//int ticketNumber=0;
+			//String sql="INSERT INTO Tickets (email, issue, status, date, added_by)" + " VALUES ('" + tick.getEmail()+"','"+tick.getIssue()+"','Open','"+tick.getDate()+"','"+tick.getAdded_by()+"');";
+			String sql = "insert into fetchcx values('"+ tu.getfCust() +"');";
+			
+			try {
+				ConnectDB();
+				stmt = conn.createStatement();
+				stmt.execute(sql);
+				//ticketNumber = stmt.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
+				DisconnectDB();
+			}
+			catch(SQLException sx)
+			{
+				System.out.println("Error connection to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+			}
+			return tu;
+			
+		}
+         
+     	public int getCountBycx(String val)
+		{
+			int count = 0;
+			String sql ="select count(created_by) as total from cxcreate where created_by=?";
+			
+			try {
+				ConnectDB();
+				
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				pstmt.setString(1, val);
+				
+				this.rs = pstmt.executeQuery();
+				
+			while (rs.next())	{
+				count = rs.getInt("total");
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			return count;
+		}
+     	
+     	public int getCountByUp(String val)
+		{
+			int count = 0;
+			String sql ="select count(created_by) as total from fetchcx where created_by=?";
+			
+			try {
+				ConnectDB();
+				
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				pstmt.setString(1, val);
+				
+				this.rs = pstmt.executeQuery();
+				
+			while (rs.next())	{
+				count = rs.getInt("total");
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			return count;
+		}
+     	
+    	public int getCountByLog(String val)
+		{
+			int count = 0;
+			String sql ="select count(submit_by) as total from logs where submit_by=?";
+			
+			try {
+				ConnectDB();
+				
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				pstmt.setString(1, val);
+				
+				this.rs = pstmt.executeQuery();
+				
+			while (rs.next())	{
+				count = rs.getInt("total");
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			return count;
+		}
+
+		
+		
 }

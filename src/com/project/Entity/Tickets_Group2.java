@@ -13,14 +13,36 @@ public class Tickets_Group2 {
 	private String status = "";
 	private String date = "";
 	private String added_by="";
+	private String created_by="";
+	String fCust="";
+	int cnt =0;
 	
 	
 	/*
 	 * Getters and Setters 
 	 */
 	
+	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	public String getStatus() {
 		return status;
+	}
+	public String getCreated_by() {
+		return created_by;
+	}
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+	public String getfCust() {
+		return fCust;
+	}
+	public void setfCust(String fCust) {
+		this.fCust = fCust;
 	}
 	public void setStatus(String status) {
 		this.status = status;

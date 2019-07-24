@@ -118,5 +118,15 @@ public class DashboardGUI {
 		});
 		btnStats.setBounds(636, 326, 121, 23);
 		frame.getContentPane().add(btnStats);
+		
+		JButton btnAdminStats = new JButton("ADMIN STATS");
+		btnAdminStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UserStatGui us = new UserStatGui();
+				us.main(null);
+			}
+		});
+		btnAdminStats.setBounds(329, 322, 121, 23);
+		frame.getContentPane().add(btnAdminStats);
 	}
 }

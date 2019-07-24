@@ -89,11 +89,13 @@ public class ExistingCustGui {
 		JButton fetchInfo = new JButton("Fetch");
 		fetchInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if(v.validateEmail(gtEmail.getText())) {
 					dao1 = new UserTicketDAO();
 					User_Group2 ug = new User_Group2();
 					ug.setEmail(gtEmail.getText().trim());
 					dao1.gtUser(ug);
+					
 					if(v.isNotEmpty(ug.getFirst_name())) {
 						FName.setText(ug.getFirst_name());
 						Lname.setText(ug.getLast_name());
@@ -101,6 +103,9 @@ public class ExistingCustGui {
 						numField.setText(ug.getPhone_number());
 						lblResult.setText("");
 						gtEmail.setEditable(false);
+						
+						
+						
 					} else {
 						lblResult.setForeground(Color.red);
 						lblResult.setText("Email ID not found in records");
@@ -110,6 +115,7 @@ public class ExistingCustGui {
 					lblResult.setForeground(Color.red);
 					lblResult.setText("Please enter a valid Email ID");
 				}
+				
 				
 			}
 		});
@@ -199,10 +205,15 @@ public class ExistingCustGui {
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
 				if(v.isNotEmpty(FName.getText()) && v.isNotEmpty(Lname.getText()) && v.isNotEmpty(AddrField.getText()) && v.isNotEmpty(numField.getText())) {
 					if(v.validatePhone(numField.getText()))	{
 						User_Group2 tf2 = new User_Group2();
+						Tickets_Group2 tp = new Tickets_Group2();
 						dao1 = new UserTicketDAO();
+						tp.setfCust("test");
+						dao1.upcx(tp);
 						tf2.setFirst_name(FName.getText().trim());
 						tf2.setLast_name(Lname.getText().trim());
 						tf2.setAddress(AddrField.getText().trim());
@@ -210,7 +221,9 @@ public class ExistingCustGui {
 						tf2.setEmail(gtEmail.getText().trim());
 						dao1.UpdateUser(tf2);
 						lblResult.setText("");
-					} else {
+						
+						
+					} else { 
 						lblResult.setForeground(Color.red);
 						lblResult.setText("Please enter a valid Phone Number");
 					}

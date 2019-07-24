@@ -166,6 +166,9 @@ public class CreateNewGUI {
 								t1.setIssue(txtrIssue.getText());								
 								t1.setDate(dateFormat.format(date));
 								t1.setAdded_by(userName);
+								Tickets_Group2 tn=new Tickets_Group2();
+								tn.setCreated_by(userName);
+								dao.gtNewTickCount(tn);
 								
 							    dao.newCustomer(u1);
 								dao.newTicket(t1);
