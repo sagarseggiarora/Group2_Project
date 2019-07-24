@@ -14,6 +14,9 @@ import com.project.Entity.User_Group2;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -27,12 +30,16 @@ public class ExistingCustGui {
 	private JTextField numField;
 	private JTextField txtIssue;
 	UserTicketDAO dao1;
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Date date = new Date();
 	private static Validations v = new Validations();
+	private static String userName = "";
 
 	/**
 	 * Launch the application.
 	 */
-	public static void Existing() {
+	public static void Existing(String user) {
+		userName=user;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -162,11 +169,13 @@ public class ExistingCustGui {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(v.isNotEmpty(txtIssue.getText())) {
-					User_Group2 tf = new User_Group2();
+					Tickets_Group2 tf = new Tickets_Group2();
 					dao1 = new UserTicketDAO();
 					tf.setEmail(gtEmail.getText().trim());
 					tf.setIssue(txtIssue.getText().trim());
-					dao1.AddIssue(tf);
+					tf.setDate(dateFormat.format(date).trim());
+					tf.setAdded_by(userName);
+					dao1.newTicket(tf);
 					
 					Tickets_Group2 tf1 = new Tickets_Group2();
 					tf1.setEmail(gtEmail.getText().trim());
@@ -217,6 +226,7 @@ public class ExistingCustGui {
 		JButton button = new JButton("LOGOUT");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				LoginGUI lg = new LoginGUI();
 				lg.main(null);
 			}
@@ -227,8 +237,9 @@ public class ExistingCustGui {
 		JButton button_1 = new JButton("<<Go Back");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
 				DashboardGUI dg = new DashboardGUI();
-				dg.Dashboard();
+				dg.Dashboard(userName);
 			}
 		});
 		button_1.setBounds(30, 355, 121, 23);

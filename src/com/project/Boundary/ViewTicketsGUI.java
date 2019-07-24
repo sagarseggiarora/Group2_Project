@@ -1,8 +1,11 @@
 package com.project.Boundary;
 
 import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -21,11 +24,14 @@ import com.project.Entity.User_Group2;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class ViewTicketsGUI {
 
 	private JFrame frame;
+	private static String userName = "";
 	private JTable table;
 	ArrayList<Tickets_Group2> tl;
 	
@@ -38,7 +44,8 @@ public class ViewTicketsGUI {
 	/**
 	 * Launch the application.
 	 */
-	public static void ViewTickets() {
+	public static void ViewTickets(String user) {
+		userName=user;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -59,13 +66,19 @@ public class ViewTicketsGUI {
 		
 		table.getSelectionModel().removeListSelectionListener(lsl);
 		
-		tm = new DefaultTableModel();
+		tm = new DefaultTableModel() {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		};
 		
 		tm.addColumn("Ticket Number");
 		tm.addColumn("Email ID");
 		tm.addColumn("Issue");
 		tm.addColumn("Status");
-		
+		tm.addColumn("Date & Time");
+		tm.addColumn("Added By");
 		
 		
 		for (Tickets_Group2 t: tl)	{
@@ -82,6 +95,9 @@ public class ViewTicketsGUI {
 		table.getColumnModel().getColumn(0).setPreferredWidth(85);
 		table.getColumnModel().getColumn(1).setPreferredWidth(150);
 		table.getColumnModel().getColumn(2).setMinWidth(150);
+		table.getColumnModel().getColumn(3).setPreferredWidth(60);
+		table.getColumnModel().getColumn(4).setPreferredWidth(120);
+		table.getColumnModel().getColumn(5).setPreferredWidth(80);
 		
 		table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
 	}
@@ -99,31 +115,33 @@ public class ViewTicketsGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 433);
+		frame.setBounds(100, 100, 848, 499);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		lsl = new ListSelectionListener() {
-			
-			public void valueChanged(ListSelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				//Get the column value of the first column of the selected row
-				int currId = (int) table.getValueAt(table.getSelectedRow(),0);
-
-				ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
-				vsg.ViewSelected(currId);
-			}
-			};
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(53, 73, 465, 288);
+		scrollPane.setBounds(97, 102, 647, 288);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		        	int currId = (int) table.getValueAt(table.getSelectedRow(),0); 
+		   		    ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
+		   		    vsg.ViewSelected(currId,userName);
+		        }
+		    }
+		});
+		
 		JLabel lblFilterBy = new JLabel("Filter by");
-		lblFilterBy.setBounds(53, 16, 69, 20);
+		lblFilterBy.setBounds(312, 42, 69, 20);
 		frame.getContentPane().add(lblFilterBy);
 		
 		/*
@@ -134,31 +152,47 @@ public class ViewTicketsGUI {
 		addTableData();
 		
 		JComboBox comboStatus = new JComboBox();
-		comboStatus.setBounds(137, 13, 69, 26);
+		comboStatus.setBounds(379, 39, 121, 26);
 		frame.getContentPane().add(comboStatus);
-		comboStatus.addItem("Select");
-		comboStatus.addItem("Open");
-		comboStatus.addItem("Close");
+		comboStatus.addItem("All tickets");
+		comboStatus.addItem("Open Tickets");
+		comboStatus.addItem("Closed Tickets");
 		
 		JButton button = new JButton("<<GoBack");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				DashboardGUI dg = new DashboardGUI();
-				dg.Dashboard();
+				dg.Dashboard(userName);
 			}
 		});
-		button.setBounds(33, 372, 102, 23);
+		button.setBounds(97, 416, 102, 23);
 		frame.getContentPane().add(button);
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				LoginGUI lg = new LoginGUI();
 				lg.main(null);
 			}
 		});
-		btnLogout.setBounds(456, 372, 102, 23);
+		btnLogout.setBounds(642, 416, 102, 23);
 		frame.getContentPane().add(btnLogout);
+		
+		//JButton btnRefresh = new JButton("Refresh");
+		JButton btnRefresh = new JButton(new ImageIcon(getClass().getClassLoader().getResource("Images/refresh.png")));
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tl = uto.getTickets();
+				addTableData();
+			}
+		});
+		btnRefresh.setToolTipText("Refresh table");
+		btnRefresh.setForeground(Color.BLACK);
+		btnRefresh.setBounds(712, 39, 32, 32);
+		btnRefresh.setBorderPainted(false);
+		frame.getContentPane().add(btnRefresh);
 		
 		/*
 		 * Add open/close filter for the table to view tickets with open/close status  
@@ -167,14 +201,18 @@ public class ViewTicketsGUI {
 		comboStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				if(comboStatus.getSelectedItem()=="Open") {
+				if(comboStatus.getSelectedItem()=="Open Tickets") {
 					
 					tl = uto.getOpenTickets();
 					addTableData();
 				}
-				else if(comboStatus.getSelectedItem()=="Close") {
+				else if(comboStatus.getSelectedItem()=="Closed Tickets") {
 					
 					tl = uto.getCloseTickets();
+					addTableData();
+				} 
+				else {
+					tl = uto.getTickets();
 					addTableData();
 				}
 				

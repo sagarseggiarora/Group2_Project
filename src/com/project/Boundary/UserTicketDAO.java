@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.project.Entity.Logs_Group2;
 import com.project.Entity.Tickets_Group2;
 import com.project.Entity.User_Group2;
 
@@ -105,7 +106,7 @@ public class UserTicketDAO {
 		public int newTicket(Tickets_Group2 tick) {
 			
 			int ticketNumber=0;
-			String sql="INSERT INTO Tickets (email, issue, status)" + " VALUES ('" + tick.getEmail()+"','"+tick.getIssue()+"','Open');";
+			String sql="INSERT INTO Tickets (email, issue, status, date, added_by)" + " VALUES ('" + tick.getEmail()+"','"+tick.getIssue()+"','Open','"+tick.getDate()+"','"+tick.getAdded_by()+"');";
 			
 			try {
 				ConnectDB();
@@ -121,6 +122,28 @@ public class UserTicketDAO {
 				System.out.println(sx.getSQLState());
 			}
 			return ticketNumber;
+			
+		}
+		
+		public int newLog(Logs_Group2 nl) {
+			
+			int logId=0;
+			String sql="INSERT INTO logs (ticket_no, Comment, date, submit_by)" + " VALUES ('" + nl.getTicket_no()+"','"+nl.getComment()+"','"+nl.getDate()+"','"+nl.getSubmitted_by()+"');";
+			
+			try {
+				ConnectDB();
+				stmt = conn.createStatement();
+				logId = stmt.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
+				DisconnectDB();
+			}
+			catch(SQLException sx)
+			{
+				System.out.println("Error connection to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+			}
+			return logId;
 			
 		}
 		
@@ -284,6 +307,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -300,6 +325,45 @@ public class UserTicketDAO {
 			
 			
 			return tl;
+		}
+		
+		public ArrayList<Logs_Group2> getLogs(String ticket){
+			
+			ArrayList<Logs_Group2> logList = new ArrayList<Logs_Group2>();
+			
+			String sql = "SELECT * FROM logs where ticket_no = ' "+ticket+"';";
+			
+			try {
+				ConnectDB();
+				
+				stmt = conn.createStatement();
+				
+				rs = stmt.executeQuery(sql);
+				
+			while (rs.next())	{
+				Logs_Group2 nl = new Logs_Group2();
+				
+				nl.setLog_id(rs.getInt("log_id"));
+				nl.setComment(rs.getString("Comment"));
+				nl.setDate(rs.getString("date"));
+				nl.setSubmitted_by(rs.getString("submit_by"));
+				
+				logList.add(nl);
+			
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return logList;
+			
 		}
 		
 		/**
@@ -326,6 +390,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -370,6 +436,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -415,6 +483,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -460,6 +530,8 @@ public class UserTicketDAO {
 				nt.setEmail(rs.getString("Email"));
 				nt.setIssue(rs.getString("Issue"));
 				nt.setStatus(rs.getString("Status"));
+				nt.setDate(rs.getString("Date"));
+				nt.setAdded_by(rs.getString("Added_by"));
 				
 				tl.add(nt);
 			
@@ -510,26 +582,6 @@ public class UserTicketDAO {
 			
 		}
 		
-		/**
-		 * Add issue for existing user
-		 * @param t User object
-		 */
-		public void AddIssue(User_Group2 t)
-		{
-			String sql = "insert into tickets(Email,Issue, status) value(?,?,?)";
-			try {
-				ConnectDB();
-				pstmt = conn.prepareStatement(sql);
-				this.pstmt.setString(1,t.getEmail());
-				this.pstmt.setString(2,t.getIssue());
-				this.pstmt.setString(3, "Open");
-				this.pstmt.execute();
-				System.out.println("Added");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 
 		/** Update the ticket with passed values
 		 * @param ut Ticket object
@@ -620,6 +672,69 @@ public class UserTicketDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		
+		
+		public int getCountByAdmin(String admin)
+		{
+			int count = 0;
+			String sql = "Select count(*) as total from tickets where added_by = ?";
+			
+			try {
+				ConnectDB();
+				
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				pstmt.setString(1,admin);
+				
+				this.rs = pstmt.executeQuery();
+				
+			while (rs.next())	{
+				count = rs.getInt("total");
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return count;
+		}
+		
+		public int getCountByDate(String date)
+		{
+			int count = 0;
+			String sql = "Select count(*) as total from tickets where date like ?";
+			
+			try {
+				ConnectDB();
+				
+				this.pstmt = this.conn.prepareStatement(sql);
+				
+				pstmt.setString(1, date + "%");
+				
+				this.rs = pstmt.executeQuery();
+				
+			while (rs.next())	{
+				count = rs.getInt("total");
+			}
+			
+			DisconnectDB();
+				
+			} catch (SQLException sx)	{
+				System.out.println("Error Connecting to database");
+				System.out.println(sx.getMessage());
+				System.out.println(sx.getErrorCode());
+				System.out.println(sx.getSQLState());
+				}
+			
+			
+			return count;
 		}
 
 }

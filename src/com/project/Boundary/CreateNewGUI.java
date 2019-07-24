@@ -16,7 +16,10 @@ import com.project.Entity.User_Group2;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -29,14 +32,18 @@ public class CreateNewGUI {
 	private JTextField txtEmail;
 	private JTextField txtAddress;
 	private JTextField txtPhone;
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Date date = new Date();
 	private static Validations v = new Validations();
+	private static String userName = "";
 	
 	UserTicketDAO dao = new UserTicketDAO();;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void CreateNew() {
+	public static void CreateNew(String user) {
+		userName=user;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -157,6 +164,8 @@ public class CreateNewGUI {
 
 								t1.setEmail(txtEmail.getText());
 								t1.setIssue(txtrIssue.getText());								
+								t1.setDate(dateFormat.format(date));
+								t1.setAdded_by(userName);
 								
 							    dao.newCustomer(u1);
 								dao.newTicket(t1);
@@ -190,8 +199,9 @@ public class CreateNewGUI {
 		JButton button = new JButton("<<GoBack");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				DashboardGUI dg = new DashboardGUI();
-				dg.Dashboard();
+				dg.Dashboard(userName);
 			}
 		});
 		button.setBounds(15, 465, 106, 23);
@@ -200,6 +210,7 @@ public class CreateNewGUI {
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				LoginGUI lg = new LoginGUI();
 				lg.main(null);
 			}

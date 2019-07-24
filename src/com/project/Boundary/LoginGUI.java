@@ -97,8 +97,9 @@ public class LoginGUI {
 					if(isValid) {
 						lblResult.setForeground(Color.green);
 						lblResult.setText("Login Successful");
+						 frame.setVisible(false);
 						DashboardGUI dg = new DashboardGUI();
-						dg.Dashboard();
+						dg.Dashboard(user);
 					}
 					else
 					{

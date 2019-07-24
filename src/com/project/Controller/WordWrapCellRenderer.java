@@ -25,6 +25,16 @@ public class WordWrapCellRenderer extends JTextArea implements TableCellRenderer
         if (table.getRowHeight(row) != getPreferredSize().height) {
             table.setRowHeight(row, getPreferredSize().height);
         }
+        if (isSelected)
+        {
+            setBackground(table.getSelectionBackground());
+            setForeground(table.getSelectionForeground());
+        }
+        else
+        {
+            setBackground(table.getBackground());
+            setForeground(table.getForeground());
+        }
         return this;
     }
 }

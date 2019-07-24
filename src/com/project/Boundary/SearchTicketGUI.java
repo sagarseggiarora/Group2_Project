@@ -20,12 +20,17 @@ import javax.swing.JButton;
 import java.awt.ScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.Point;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class SearchTicketGUI {
 
@@ -35,6 +40,7 @@ public class SearchTicketGUI {
 	private JTextField txtSearchNum;
 	private JTextField txtSearchEmail;
 	private JTable table;
+	private static String userName = "";
 	
 	int i = 0;
 	private UserTicketDAO uto = new UserTicketDAO();
@@ -46,7 +52,8 @@ public class SearchTicketGUI {
 	/**
 	 * Launch the application.
 	 */
-	public static void SearchTicket() {
+	public static void SearchTicket(String user) {
+		userName=user;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -79,12 +86,19 @@ public class SearchTicketGUI {
 			
 			table.getSelectionModel().removeListSelectionListener(lsl);
 			
-			tm = new DefaultTableModel();
+			tm = new DefaultTableModel() {
+				@Override
+			    public boolean isCellEditable(int row, int column) {
+			       return false;
+			    }
+			};
 			
 			tm.addColumn("Ticket Number");
 			tm.addColumn("Email ID");
 			tm.addColumn("Issue");
 			tm.addColumn("Status");
+			tm.addColumn("Date & Time");
+			tm.addColumn("Added By");
 			
 			for (Tickets_Group2 t: tl)	{
 				tm.addRow(t.getVector());
@@ -100,6 +114,9 @@ public class SearchTicketGUI {
 			table.getColumnModel().getColumn(0).setPreferredWidth(85);
 			table.getColumnModel().getColumn(1).setPreferredWidth(150);
 			table.getColumnModel().getColumn(2).setMinWidth(150);
+			table.getColumnModel().getColumn(3).setPreferredWidth(60);
+			table.getColumnModel().getColumn(4).setPreferredWidth(120);
+			table.getColumnModel().getColumn(5).setPreferredWidth(80);
 			
 			table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
 		}
@@ -130,17 +147,27 @@ public class SearchTicketGUI {
 		frame.setBounds(100, 100, 837, 483);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		lsl = new ListSelectionListener() {
 		
-		public void valueChanged(ListSelectionEvent arg0) {
-			// TODO Auto-generated method stub
-			//Get the column value of the first column of the selected row
-			int currId = (int) table.getValueAt(table.getSelectedRow(),0);
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(72, 142, 647, 249);
+		frame.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(table);
 
-			ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
-			vsg.ViewSelected(currId);
-		}
-		};
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		        	int currId = (int) table.getValueAt(table.getSelectedRow(),0); 
+		   		    ViewSelectedTicketGUI vsg = new ViewSelectedTicketGUI();
+		   		    vsg.ViewSelected(currId,userName);
+		        }
+		    }
+		});
 		
 		txtSearchNum = new JTextField();
 		txtSearchNum.setToolTipText("Enter the ticket number");
@@ -150,7 +177,7 @@ public class SearchTicketGUI {
 		
 		lblResult = new JLabel("");
 		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblResult.setBounds(211, 103, 314, 37);
+		lblResult.setBounds(219, 97, 314, 37);
 		frame.getContentPane().add(lblResult);
 		
 		/*
@@ -203,33 +230,39 @@ public class SearchTicketGUI {
 		btnSearchByEmail.setBounds(356, 61, 177, 25);
 		frame.getContentPane().add(btnSearchByEmail);
 		
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(133, 153, 462, 249);
-		frame.getContentPane().add(scrollPane);
-		
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(table);
-		
 		JButton button = new JButton("<<GoBack");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				DashboardGUI dg = new DashboardGUI();
-				dg.Dashboard();
+				dg.Dashboard(userName);
 			}
 		});
-		button.setBounds(10, 410, 109, 23);
+		button.setBounds(133, 400, 109, 23);
 		frame.getContentPane().add(button);
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
 				LoginGUI lg = new LoginGUI();
 				lg.main(null);
 			}
 		});
-		btnLogout.setBounds(595, 410, 115, 23);
+		btnLogout.setBounds(562, 400, 115, 23);
 		frame.getContentPane().add(btnLogout);
+		
+		JButton btnRefresh = new JButton(new ImageIcon(getClass().getClassLoader().getResource("Images/refresh.png")));
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addTableData();
+			}
+		});
+		btnRefresh.setToolTipText("Refresh table");
+		btnRefresh.setForeground(Color.BLACK);
+		btnRefresh.setBorderPainted(false);
+		btnRefresh.setBounds(562, 97, 32, 32);
+		frame.getContentPane().add(btnRefresh);
 		
 	}
 }
