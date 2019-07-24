@@ -3,8 +3,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import com.project.Boundary.UserTicketDAO;
 import com.project.Controller.Validations;
+import com.project.Entity.Logs_Group2;
+import com.project.Entity.Tickets_Group2;
+import com.project.Entity.User_Group2;
 
 class testCasesFinal {
 	Validations v;
@@ -71,5 +75,62 @@ class testCasesFinal {
 		
 	}
 	
+	//unit testing for Logs_Group2 entity class
+	
+	@Test
+	void getCommentTest() {
+		Logs_Group2 l= new Logs_Group2();
+		l.setComment("Issue Resolved");
+				
+		assertEquals(l.getComment(),"Issue Resolved");
+	}
+	
+	@Test
+	void getSubmitTest() {
+		Logs_Group2 l= new Logs_Group2();
+		l.setSubmitted_by("test");
+				
+		assertNotEquals(l.getSubmitted_by(),"test1");
+		
+	}
+	
+	//unit testing for Tickets_Group2 entity class
+	
+	@Test
+	void getStatusTest() {
+		Tickets_Group2 t= new Tickets_Group2();
+		t.setStatus("open");
+				
+		assertEquals(t.getStatus(),"open");
+	}
+	
+	@Test
+	void getEmailTest() {
+		Tickets_Group2 t= new Tickets_Group2();
+		t.setEmail("sagar@sagar.com");
+				
+		assertNotEquals(t.getStatus(),"sagar.com");
+		
+	}
+	
+	//unit testing for User_Group2 entity class
+	
+		@Test
+		void getFnameTest() {
+			User_Group2 u= new User_Group2();
+			u.setFirst_name("Sagar");
+					
+			assertEquals(u.getFirst_name(),"Sagar");
+	
+		}
+		
+		@Test
+		void getLnameTest() {
+			User_Group2 u= new User_Group2();
+			u.setLast_name("Arora");
+					
+			assertNotEquals(u.getFirst_name(),"Sagar");
+	
+		}
 
 }
