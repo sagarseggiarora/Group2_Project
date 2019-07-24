@@ -138,5 +138,94 @@ class testCasesFinal {
 			assertNotEquals(u.getFirst_name(),"Sagar");
 	
 		}
+		@Test
+		void gtTicket()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			Tickets_Group2 t= new Tickets_Group2();
+			t.setStatus("Close");
+			assertEquals(t.getStatus(),dp.getTicket(1).getStatus());
+		}
+		@Test
+		void gtUser()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			User_Group2 cs = new User_Group2();
+			cs.setFirst_name("nitish");
+			cs.setEmail("na@gmail.com");
+			assertEquals(cs.getEmail(),dp.gtUser(cs).getEmail());
+		}
+	
+		@Test
+		void getCountByAdmin()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			Tickets_Group2 t= new Tickets_Group2();
+			assertEquals(3,dp.getCountByAdmin("test"));
+		}
+		@Test
+		void getCountByDate()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			Tickets_Group2 t= new Tickets_Group2();
+			assertEquals(1,dp.getCountByDate("2019/07/23 19:17:00"));
+		}
+		@Test
+		 void getCountBycx()
+		 {
+			UserTicketDAO dp = new UserTicketDAO();
+			assertEquals(1,dp.getCountBycx("sagar"));
+		 }
+		@Test
+		void getCountByUp()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			assertEquals(1,dp.getCountByUp("sagar"));
+			
+		}
+		@Test
+		void getCountByLog()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			assertEquals(1,dp.getCountByLog("sagar"));
+		}
+		@Test
+		void getCountByAdminFalse()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			Tickets_Group2 t= new Tickets_Group2();
+			assertNotEquals(3,dp.getCountByAdmin("parth"));
+		}
+		@Test
+		void getCountByDateFalse()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			Tickets_Group2 t= new Tickets_Group2();
+			assertNotEquals(1,dp.getCountByDate("2019/07/23 19:17:01"));
+		}
+		@Test
+		 void getCountBycxFalse()
+		 {
+			UserTicketDAO dp = new UserTicketDAO();
+			assertNotEquals(1,dp.getCountBycx("parth"));
+		 }
+		@Test
+		void getCountByUpFalse()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			assertNotEquals(2,dp.getCountByUp("sagar"));
+			
+		}
+		@Test
+		void getCountByLogFalse()
+		{
+			UserTicketDAO dp = new UserTicketDAO();
+			assertNotEquals(1,dp.getCountByLog("parth"));
+		}
+		
+		
+	
+		
+		
 
 }
