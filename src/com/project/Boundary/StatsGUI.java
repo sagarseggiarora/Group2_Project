@@ -162,6 +162,7 @@ public class StatsGUI {
 					}
 				}
 				else {
+					lblResult.setText("");
 					lblError.setText("Please enter a valid Email ID");
 				}
 			}

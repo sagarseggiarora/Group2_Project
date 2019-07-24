@@ -184,7 +184,16 @@ public class ViewSelectedTicketGUI {
 				log.setDate(dateFormat.format(date));
 				log.setSubmitted_by(userName);
 				
-				uto.newLog(log);
+				int id=uto.newLog(log);
+				txtrLog.setText("");
+				if(id != 0) {
+					if(cbStatus.getSelectedItem()=="Close") {
+						ut.setStatus("Open");
+						ut.setTicket_number(Integer.parseInt(txtTicketNum.getText()));
+						uto.updateTickets(ut);
+						cbStatus.setSelectedItem("Open");
+					}
+				}
 				
 				
 			}
