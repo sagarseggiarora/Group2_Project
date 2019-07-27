@@ -175,6 +175,7 @@ public class StatsGUI {
 		btnCountDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(v.validateDate(txtDate.getText())) {
+					lblResult.setText("");
 					count = dao.getCountByDate(txtDate.getText());
 					lblError.setText("");
 					lblResult.setText(String.valueOf(count));
@@ -191,6 +192,7 @@ public class StatsGUI {
 		JButton btnCountAdmin = new JButton("Count");
 		btnCountAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblResult.setText("");
 				count = dao.getCountByAdmin(String.valueOf(cbAdmin.getSelectedItem()));
 				lblResult.setText(String.valueOf(count));
 			}
@@ -202,6 +204,7 @@ public class StatsGUI {
 		JButton btnCountTicket = new JButton("Count");
 		btnCountTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblResult.setText("");
 				count = dao.getTickets().size();
 				lblResult.setText(String.valueOf(count));
 			}
@@ -213,6 +216,7 @@ public class StatsGUI {
 		JButton btnCountOTicket = new JButton("Count");
 		btnCountOTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblResult.setText("");
 				count = dao.getOpenTickets().size();
 				lblResult.setText(String.valueOf(count));
 			}
@@ -224,6 +228,7 @@ public class StatsGUI {
 		JButton btnCountCTicket = new JButton("Count");
 		btnCountCTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblResult.setText("");
 				count = dao.getCloseTickets().size();
 				lblResult.setText(String.valueOf(count));
 			}

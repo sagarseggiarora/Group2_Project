@@ -1,6 +1,5 @@
 
 create table cxcreate
 (
-created_by varchar(100),
-
-)
+created_by varchar(100)
+);

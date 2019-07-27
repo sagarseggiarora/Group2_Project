@@ -143,8 +143,8 @@ class testCasesFinal {
 		{
 			UserTicketDAO dp = new UserTicketDAO();
 			Tickets_Group2 t= new Tickets_Group2();
-			t.setStatus("Close");
-			assertEquals(t.getStatus(),dp.getTicket(1).getStatus());
+			t.setStatus("open");
+			assertEquals(t.getStatus(),dp.getTicket(4).getStatus());
 		}
 		@Test
 		void gtUser()
@@ -161,14 +161,14 @@ class testCasesFinal {
 		{
 			UserTicketDAO dp = new UserTicketDAO();
 			Tickets_Group2 t= new Tickets_Group2();
-			assertEquals(3,dp.getCountByAdmin("test"));
+			assertEquals(1,dp.getCountByAdmin("sagar"));
 		}
 		@Test
 		void getCountByDate()
 		{
 			UserTicketDAO dp = new UserTicketDAO();
 			Tickets_Group2 t= new Tickets_Group2();
-			assertEquals(1,dp.getCountByDate("2019/07/23 19:17:00"));
+			assertEquals(1,dp.getCountByDate("2019/07/24 19:02:02"));
 		}
 		@Test
 		 void getCountBycx()
@@ -220,7 +220,7 @@ class testCasesFinal {
 		void getCountByLogFalse()
 		{
 			UserTicketDAO dp = new UserTicketDAO();
-			assertNotEquals(1,dp.getCountByLog("parth"));
+			assertNotEquals(5,dp.getCountByLog("parth"));
 		}
 		
 		

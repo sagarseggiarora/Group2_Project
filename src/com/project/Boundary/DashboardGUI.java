@@ -123,7 +123,7 @@ public class DashboardGUI {
 		btnAdminStats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UserStatGui us = new UserStatGui();
-				us.main(null);
+				us.userStat(userName);
 			}
 		});
 		btnAdminStats.setBounds(329, 322, 121, 23);
