@@ -16,14 +16,17 @@ public class UserStatGui {
 	private JFrame frame;
 	private JTextField admin_name;
 	 UserTicketDAO dao;
+   private static String user="";
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void userStat(String Username) {
+		user =Username;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					UserStatGui window = new UserStatGui();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -46,7 +49,6 @@ public class UserStatGui {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		admin_name = new JTextField();

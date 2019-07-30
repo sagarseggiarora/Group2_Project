@@ -736,34 +736,30 @@ public class UserTicketDAO {
 			
 			return count;
 		}
-		public Tickets_Group2 gtNewTickCount(Tickets_Group2 t5)
-		{
-			//String sql = "select count(created_by) from cxcreate where created_by=?";
-			String sql = "insert into cxcreate values(?)";
-
-			try {
-				ConnectDB();
+		 public Tickets_Group2 gtNewTickCount(Tickets_Group2 tu) {
 				
-				pstmt.setString(1,t5.getCreated_by());
-				this.pstmt = this.conn.prepareStatement(sql);
-				this.pstmt.execute();
 				
-				DisconnectDB();
-			
-		}
-			catch (SQLException sx)	{
-				System.out.println("Error Connecting to database");
-				System.out.println(sx.getMessage());
-				System.out.println(sx.getErrorCode());
-				System.out.println(sx.getSQLState());
+				String sql = "insert into cxcreate values('"+ tu.getCreated_by() +"');";
+				
+				try {
+					ConnectDB();
+					stmt = conn.createStatement();
+					stmt.execute(sql);
+					DisconnectDB();
 				}
-			return t5;
-
-		}
+				catch(SQLException sx)
+				{
+					System.out.println("Error connection to database");
+					System.out.println(sx.getMessage());
+					System.out.println(sx.getErrorCode());
+					System.out.println(sx.getSQLState());
+				}
+				return tu;
+				
+			}
          public Tickets_Group2 upcx(Tickets_Group2 tu) {
 			
-			//int ticketNumber=0;
-			//String sql="INSERT INTO Tickets (email, issue, status, date, added_by)" + " VALUES ('" + tick.getEmail()+"','"+tick.getIssue()+"','Open','"+tick.getDate()+"','"+tick.getAdded_by()+"');";
+			
 			String sql = "insert into fetchcx values('"+ tu.getfCust() +"');";
 			
 			try {
