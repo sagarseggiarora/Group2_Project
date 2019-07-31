@@ -132,8 +132,9 @@ public class StatsGUI {
 		JComboBox cbAdmin = new JComboBox();
 		cbAdmin.setBounds(402, 129, 186, 22);
 		frame.getContentPane().add(cbAdmin);
+		cbAdmin.addItem("Select Admin");
 		cbAdmin.addItem("test");
-		cbAdmin.addItem("Dash");
+		cbAdmin.addItem("Dashmeet");
 		cbAdmin.addItem("Sagar");
 		cbAdmin.addItem("Parth");
 		
@@ -155,15 +156,21 @@ public class StatsGUI {
 						count = dao.getTicketbyEmail(txtEmail.getText()).size();
 						lblError.setText("");
 						lblResult.setText(String.valueOf(count));
+						txtDate.setText("");
+						cbAdmin.setSelectedIndex(0);
 					}
 					else {
 						lblResult.setText("");
 						lblError.setText("Email ID not found in records");
+						cbAdmin.setSelectedIndex(0);
+						txtDate.setText("");
 					}
 				}
 				else {
 					lblResult.setText("");
 					lblError.setText("Please enter a valid Email ID");
+					cbAdmin.setSelectedIndex(0);
+					txtDate.setText("");
 				}
 			}
 		});
@@ -175,13 +182,17 @@ public class StatsGUI {
 		btnCountDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(v.validateDate(txtDate.getText())) {
-					lblResult.setText("");
 					count = dao.getCountByDate(txtDate.getText());
 					lblError.setText("");
 					lblResult.setText(String.valueOf(count));
+					txtEmail.setText("");
+					cbAdmin.setSelectedIndex(0);
 				} 
 				else {
+					lblResult.setText("");
 					lblError.setText("Please enter the date in yyyy/mm/dd");
+					cbAdmin.setSelectedIndex(0);
+					txtEmail.setText("");
 				}
 			}
 		});
@@ -192,9 +203,11 @@ public class StatsGUI {
 		JButton btnCountAdmin = new JButton("Count");
 		btnCountAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblResult.setText("");
+				lblError.setText("");
 				count = dao.getCountByAdmin(String.valueOf(cbAdmin.getSelectedItem()));
 				lblResult.setText(String.valueOf(count));
+				txtDate.setText("");
+				txtEmail.setText("");
 			}
 		});
 		btnCountAdmin.setBounds(650, 128, 73, 25);
@@ -204,9 +217,12 @@ public class StatsGUI {
 		JButton btnCountTicket = new JButton("Count");
 		btnCountTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblResult.setText("");
+				lblError.setText("");
 				count = dao.getTickets().size();
 				lblResult.setText(String.valueOf(count));
+				txtDate.setText("");
+				txtEmail.setText("");
+				cbAdmin.setSelectedIndex(0);
 			}
 		});
 		btnCountTicket.setBounds(327, 176, 73, 25);
@@ -216,9 +232,12 @@ public class StatsGUI {
 		JButton btnCountOTicket = new JButton("Count");
 		btnCountOTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblResult.setText("");
+				lblError.setText("");
 				count = dao.getOpenTickets().size();
 				lblResult.setText(String.valueOf(count));
+				txtDate.setText("");
+				txtEmail.setText("");
+				cbAdmin.setSelectedIndex(0);
 			}
 		});
 		btnCountOTicket.setBounds(327, 222, 73, 25);
@@ -228,9 +247,12 @@ public class StatsGUI {
 		JButton btnCountCTicket = new JButton("Count");
 		btnCountCTicket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblResult.setText("");
+				lblError.setText("");
 				count = dao.getCloseTickets().size();
 				lblResult.setText(String.valueOf(count));
+				txtDate.setText("");
+				txtEmail.setText("");
+				cbAdmin.setSelectedIndex(0);
 			}
 		});
 		btnCountCTicket.setBounds(327, 265, 73, 25);
